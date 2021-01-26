@@ -10,16 +10,20 @@ generator client {
   	provider = "prisma-client-js"
 }
 
-model Profile {
-	id     Int     @default(autoincrement()) @id
-	bio    String?
-	user   User    @relation(fields: [userId], references: [id])
-	userId Int     @unique
+model User {
+	id       Int       @id @default(autoincrement())
+	name     String
+	email    String    @unique
+	phone    String?
+	posts    Post[]
 }
 
-model User {
-	id      Int      @default(autoincrement()) @id
-	email   String   @unique
-	name    String?
-	profile Profile?
+model Post {
+	id        Int      @default(autoincrement()) @id
+	createdAt DateTime @default(now())
+	title     String
+	content   String?
+	published Boolean  @default(false)
+	author    User     @relation(fields: [authorId], references: [id])
+	authorId  Int
 }
