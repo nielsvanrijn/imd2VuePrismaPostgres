@@ -94,22 +94,27 @@ export const loginUser = async (req: Request, res: Response) => {
 };
 
 export const createUser = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
     const hashedPassword = await hash(password, 12);
-
     try {
-        await prisma.user.create({
+        const user = await prisma.user.create({
             data: {
                 email,
                 password: hashedPassword,
             }
         });
-        return res.status(200);
+        await prisma.profile.create({
+            data: {
+                name,
+                user: { connect: { id: user.id } }
+            },
+        });
     }
     catch(e) {
         console.log(e);
-        return res.status(500);
+        return res.status(500).send({ ok: false});
     }
+    return res.status(200).send({ ok: true });
 };
 
 // Refesh token
@@ -161,7 +166,7 @@ export const revokeUserRefeshToken = async (req: Request, res: Response) => {
             where: { email },
             data: { tokenVersion: user.tokenVersion + 1 },
         });
-        return res.status(200);
+        return res.status(200).send({ ok: true });
     }
     catch(err) {
         console.log(err);

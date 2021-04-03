@@ -1,14 +1,14 @@
-import { body } from 'express-validator';
 import { compare } from 'bcryptjs';
+import { body } from 'express-validator';
 
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
-
 // Create / register
 export const createUserSchema = [
-    body('email', 'Email is required').notEmpty()
-        .isEmail().withMessage('Email is not valid')
+    body('name').notEmpty().withMessage('Name is required').bail(),
+    body('email').notEmpty().withMessage('Email is required').bail()
+        .isEmail().withMessage('Email is not valid').bail()
         .custom((value) => {
             if (!value) return true;
             return prisma.user
@@ -24,7 +24,7 @@ export const createUserSchema = [
                     return await Promise.resolve();
                 });
         }),
-    body('password', 'Name is required').notEmpty()
+    body('password').notEmpty().withMessage('Password is required').bail()
         .isLength({min: 6}).withMessage('Password must be longer than 6 characters')
         .matches(/[A-Z]/).withMessage('Password does not contain an uppercase character')
         .matches(/\W/).withMessage('Password does not contain any non-word characters')
@@ -32,7 +32,7 @@ export const createUserSchema = [
 
 // Update
 export const updateUserSchema = [
-    body('name', 'Name is required').notEmpty(),
+    body('name', 'Name is required').notEmpty().bail(),
     body('email', 'Email is required').custom((value, { req: { params } }) => {
         if (!value) return true;
         return prisma.user
@@ -51,8 +51,9 @@ export const updateUserSchema = [
 ];
 
 // Login
+let foundUser = false;
 export const loginUserSchema = [
-    body('email', 'Email is required').notEmpty()
+    body('email').notEmpty().withMessage('Email is required').bail()
         .custom(async (value) => {
             if (!value) return true;
             const user = await prisma.user
@@ -62,10 +63,15 @@ export const loginUserSchema = [
                     }
                 });
                 
-            if (!user) return await Promise.reject(new Error('No users found with that E-mail'));
+            if (!user) {
+                foundUser = false;
+                return await Promise.reject(new Error('No users found with that E-mail'));
+            }
+            foundUser = true;
             return await Promise.resolve();
         }),
-    body('password', 'Password is required').notEmpty()
+    body('password').notEmpty().withMessage('Password is required').bail()
+        .if(() => foundUser).bail()
         .custom(async (value, meta) => {
             if (!value) return true;
             const user = await prisma.user
