@@ -3,7 +3,7 @@ import { verify } from "jsonwebtoken";
 
 // Check access token
 export const isAuth = [
-    header('authorization', 'Authorization header not set').notEmpty()
+    header('authorization', 'Authorization header not set').notEmpty().bail()
         .custom(async (value) => {
             if (!value) return true;
             try {
@@ -12,7 +12,7 @@ export const isAuth = [
                 return await Promise.resolve();
             }
             catch(err) {
-                console.log(err);
+                console.log(err, JSON.stringify(err));
                 return await Promise.reject(new Error(err.message ? err.message : 'Invalid Token'));
             }
         })

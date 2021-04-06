@@ -1,3 +1,4 @@
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
@@ -11,7 +12,10 @@ import { isAuth } from './middlewares/AuthValidation';
 const app = express();
 app.use(helmet());
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({origin: true, credentials: true}));
+
+// disable cors when live && remove withcredentials true from angular
 
 // Users
 app.get('/users', validate(isAuth), getUsers);

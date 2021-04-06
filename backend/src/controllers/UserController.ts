@@ -119,6 +119,7 @@ export const createUser = async (req: Request, res: Response) => {
 
 // Refesh token
 export const refeshToken = async (req: Request, res: Response) => {
+    console.log('cookies', JSON.stringify(req.cookies));
     const token = req.cookies.rt;
     if (!token) {
         return res.status(400).send({ok: false, accessToken: ''});

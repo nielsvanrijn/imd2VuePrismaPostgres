@@ -1,1 +1,6 @@
 <p>account works!</p>
+<ul>
+	<li *ngFor="let user of users; index as sectionIndex">
+		{{user.email}}
+	</li>
+</ul>
