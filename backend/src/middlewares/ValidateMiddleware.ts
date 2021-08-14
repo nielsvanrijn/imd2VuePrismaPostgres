@@ -10,5 +10,10 @@ export const validate = (schemas: ValidationChain[]) => async (req: Request, res
     }
 
     const errors = result.array();
-    return res.status(422).json(errors);
+    let status = 422;
+    if (errors.some((error) => error.param === 'authorization')) {
+        status = 401;
+    }
+    console.log('validatoin err', status, JSON.stringify(errors));
+    return res.status(status).json(errors);
 };

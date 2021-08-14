@@ -17,11 +17,13 @@ app.use(cors({origin: true, credentials: true}));
 
 // disable cors when live && remove withcredentials true from angular
 
-// Users
+// User(s)
+app.use('/user', validate(isAuth));
+app.get('/user', getUser);
+app.patch('/user', validate(updateUserSchema), updateUser);
+app.delete('/user/:id', deleteUser);
 app.get('/users', validate(isAuth), getUsers);
-app.get('/users/:id', getUser);
-app.put('/users/:id', validate(updateUserSchema), updateUser);
-app.delete('/users/:id', deleteUser);
+
 // Auth
 app.post('/register', validate(createUserSchema), createUser);
 app.post('/login', validate(loginUserSchema), loginUser);

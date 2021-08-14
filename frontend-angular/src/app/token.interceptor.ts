@@ -26,8 +26,8 @@ export class TokenInterceptor implements HttpInterceptor {
 		}
 
 		return next.handle(request).pipe(catchError(error => {
-			if (error instanceof HttpErrorResponse && error.status === 422) {
-				return this.handle422Error(request, next);
+			if (error instanceof HttpErrorResponse && error.status === 401 && error.url && !error.url.includes('upload.nielsapps')) {
+				return this.handle401Error(request, next);
 			} else {
 				return throwError(error);
 			}
@@ -45,7 +45,7 @@ export class TokenInterceptor implements HttpInterceptor {
 	private isRefreshing = false;
 	private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-	private handle422Error(request: HttpRequest<any>, next: HttpHandler) {
+	private handle401Error(request: HttpRequest<any>, next: HttpHandler) {
 		if (!this.isRefreshing) {
 			this.isRefreshing = true;
 			this.refreshTokenSubject.next(null);
@@ -55,7 +55,12 @@ export class TokenInterceptor implements HttpInterceptor {
 					this.isRefreshing = false;
 					this.refreshTokenSubject.next(response.accessToken);
 					return next.handle(this.addToken(request, response.accessToken));
-				}));
+				}),
+				catchError((e) => {
+					this.auth.removeTokens();
+					return throwError(e);
+				})
+			);
 
 		} else {
 			return this.refreshTokenSubject.pipe(

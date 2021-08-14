@@ -30,16 +30,10 @@ export class AuthService {
 			email,
 			password
 		};
-		console.log(data);
 		this.http.post(`${environment.apiUrl}/login`, data, {withCredentials: true}).toPromise().then((result: any) => {
-			console.log('login', result);
+			this.router.navigate(['account']);
 			this.storeToken(result.accessToken);
-			// add accestoken to every request
-			// route to dashboard
-			// console.log(plainToClass(User, result));
-			// this.users = plainToClass(User, result);
 		}).catch((err) => {
-			console.log(err);
 			this.loginErrors = {};
 			this.loginErrors = err.error.reduce((pV: any, cV: any) => { 
 				return {
@@ -47,7 +41,7 @@ export class AuthService {
 					[cV.param]: err.error.filter((e: any) => e.param === cV.param).map((er: any) => er.param === cV.param ? er.msg : null),
 				};
 			}, this.loginErrors);
-			console.log('register errors', this.loginErrors);
+			console.log('login errors', this.loginErrors);
 		});
 	}
 
@@ -55,10 +49,8 @@ export class AuthService {
 		const data = {
 			email,
 		};
-		console.log(data);
 		this.http.post(`${environment.apiUrl}/revoke`, data, { withCredentials: true }).toPromise().then((result: any) => {
-			console.log('logout', result);
-			// return to login
+			this.router.navigate(['account']);
 		}).catch((err) => {
 			console.log('logout errors', err);
 		});
@@ -70,7 +62,6 @@ export class AuthService {
 			email,
 			password
 		};
-		console.log(data);
 		this.http.post(`${environment.apiUrl}/register`, data, { withCredentials: true }).toPromise().then(() => {
 			this.router.navigate(['']);
 		}).catch((err) => {
@@ -93,7 +84,7 @@ export class AuthService {
 	refreshToken() {
 		return this.http.post<any>(`${environment.apiUrl}/refesh_token`, {'refreshToken': this.getRefreshToken()}, { withCredentials: true })
 			.pipe(tap((result: any) => {
-				console.log('refesh_token', result);
+				// console.log('refesh_token', result);
 				this.storeToken(result.accessToken);
 			}));
 	}
@@ -110,7 +101,7 @@ export class AuthService {
 		localStorage.setItem('ac', token);
 	}
 
-	private removeTokens() {
+	public removeTokens() {
 		localStorage.removeItem('ac');
 	}
 }

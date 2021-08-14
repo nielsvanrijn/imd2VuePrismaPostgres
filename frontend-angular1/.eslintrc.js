@@ -4,9 +4,13 @@ module.exports = {
 	},
 	root: true,
 	parser: '@typescript-eslint/parser',
+	parserOptions: {
+		parser: "@typescript-eslint/parser",
+	},
 	plugins: ['ordered-imports'],
 	extends: [
 		'eslint:recommended',
+		'plugin:tailwind/recommended',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:ordered-imports/recommended'
 	],
@@ -23,6 +27,8 @@ module.exports = {
 		'@typescript-eslint/explicit-module-boundary-types': 'off',
 		'semi': 'warn',
 		"no-empty-function": "off",
-		"@typescript-eslint/no-empty-function": ["off"]
+		"@typescript-eslint/no-empty-function": ["off"],
+		"tailwind/class-order": "error",
+		"no-non-null-assertion": "off",
 	}
 };

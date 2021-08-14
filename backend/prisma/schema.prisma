@@ -11,17 +11,28 @@ generator client {
 }
 
 model User {
-  id       			Int       @id @default(autoincrement())
-  email				String    @unique
-  password 			String
-  Profile  			Profile[]
-  tokenVersion      Int       @default(0)
+  id			Int			@id @default(autoincrement())
+  email			String		@unique
+  password		String
+  role			Role		@default(USER)
+  profile		Profile?
+  tokenVersion	Int			@default(0)
+  createdAt		DateTime	@default(now())
+  updatedAt		DateTime	@updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 model Profile {
-  id     Int     @id @default(autoincrement())
-  name   String
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
+  id			Int			@id @default(autoincrement())
+  name			String
+  bio			String?
+  avatar_url	String?
+  user			User		@relation(fields: [userId], references: [id])
+  userId		Int			@unique
+  createdAt		DateTime	@default(now())
+  updatedAt		DateTime	@updatedAt
 }

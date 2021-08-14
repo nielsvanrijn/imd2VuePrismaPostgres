@@ -29,7 +29,6 @@ function patchPostCSS(webpackConfig, tailwindConfig, components = false) {
 	}
 }
 module.exports = (config) => {
-	// eslint-disable-next-line @typescript-eslint/no-var-requires
 	const tailwindConfig = require("./tailwind.config.js");
 	patchPostCSS(config, tailwindConfig, true);
 	return config;

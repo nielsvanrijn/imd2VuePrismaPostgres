@@ -1,29 +1,46 @@
-import { environment } from 'src/environments/environment';
-import { plainToClass } from 'class-transformer';
-import { User } from 'src/app/models/User';
+import { fadeInAnimation, fadeOut } from 'src/app/animations/fade.animation';
+import * as moment from 'moment';
 
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/models/User';
+import { HttpClient } from '@angular/common/http';
+
 @Component({
 	selector: 'app-account',
 	templateUrl: './account.component.html',
-	styleUrls: ['./account.component.scss']
+	styleUrls: ['./account.component.scss'],
+	animations: [
+		fadeOut(),
+		fadeInAnimation,
+	]
 })
 export class AccountComponent implements OnInit {
+	moment = moment;
+	user$!: Observable<User>;
 
-	public users: User[] = [];
+	public toggle = false;
+	public array = ['All', 'Actors', 'Movies', 'Genres', 'Directors'];
+	public selected = 'All';
 
-	constructor(
-		private http: HttpClient
-	) {
-		this.http.get(`${environment.apiUrl}/users`).toPromise().then((res: any) => {
-			this.users = plainToClass(User, res.data as Array<any>);
-		}).catch((err) => {
-			console.log(err);
-		});
+	public steps = [
+		{name: 'Create account', done: true },
+		{name: 'Add profile picture', done: false },
+		{name: 'Add profile bio', done: false },
+		{name: 'Add items to watchlist', done: false },
+	]
+
+	get firstNotDoneIndex(): number {
+		return this.steps.findIndex((s) => !s.done);
 	}
 
-	ngOnInit(): void {
+	constructor(
+		public userService: UserService,
+	) {}
+
+	ngOnInit() {
+		this.user$ = this.userService.getCurrentUser();
 	}
 
 }

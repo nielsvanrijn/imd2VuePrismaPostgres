@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { hash } from 'bcryptjs';
 import { sign, verify } from 'jsonwebtoken';
 
@@ -14,10 +14,11 @@ export const getUsers = async (req: Request, res: Response) => {
 };
 
 export const getUser = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const decoded = authValidationCheck(req, res, 'getUser');
 
     const user = await prisma.user.findUnique({
-        where: { id: Number(id) },
+        where: { id: Number(decoded.userId) },
+        include: { profile: true },
     });
 
     if (!user) {
@@ -27,31 +28,35 @@ export const getUser = async (req: Request, res: Response) => {
     return res.json(user);
 };
 
-// CRUD
-// export const createUser = async (req: Request, res: Response) => {
-// const { name, email, phone } = req.body
-
-// const user = await prisma.user.create({
-//     data: {
-//         email,
-//     }
-// })
-
-// return res.json(user)
-// }
-
+// Update User
 export const updateUser = async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const { name, email, phone } = req.body;
+    const decoded = authValidationCheck(req, res, 'updateUser');
 
-    const user = await prisma.user.update({
-        where: { id: Number(id) },
-        data: { email }
-    });
+    try {
+        const { email, profile: {name, bio} } = req.body;
 
-    return res.json(user);
+        const user = await prisma.user.update({
+            where: { id: Number(decoded.userId) },
+            data: {
+                email,
+                profile: {
+                    update: {
+                        name,
+                        bio
+                    }
+                }
+            },
+            include: { profile: true }
+        });
+
+        return res.json(user);
+    }
+    catch (err) {
+        return res.status(500).json(err);
+    }
 };
 
+// Delete User
 export const deleteUser = async (req: Request, res: Response) => {
     // const { id } = req.params
 
@@ -93,6 +98,7 @@ export const loginUser = async (req: Request, res: Response) => {
     });
 };
 
+// Create User
 export const createUser = async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
     const hashedPassword = await hash(password, 12);
@@ -119,7 +125,6 @@ export const createUser = async (req: Request, res: Response) => {
 
 // Refesh token
 export const refeshToken = async (req: Request, res: Response) => {
-    console.log('cookies', JSON.stringify(req.cookies));
     const token = req.cookies.rt;
     if (!token) {
         return res.status(400).send({ok: false, accessToken: ''});
@@ -153,14 +158,14 @@ export const refeshToken = async (req: Request, res: Response) => {
     });
 };
 
-// Refesh token
+// Revoke token
 export const revokeUserRefeshToken = async (req: Request, res: Response) => {
     const { email } = req.body;
     const user = await prisma.user.findUnique({
         where: { email },
     });
 
-    if (!user) return  res.status(500).json('Validation failed');
+    if (!user) return res.status(500).json('Validation failed');
 
     try {
         await prisma.user.update({
@@ -174,3 +179,19 @@ export const revokeUserRefeshToken = async (req: Request, res: Response) => {
         return res.status(500).send(err.message ? err.message : 'Could not update user');
     }
 };
+
+function authValidationCheck(req: Request, res: Response, functionName = ''): any {
+    if (!(req.headers && req.headers.authorization)) return res.status(500).json(`${functionName} Validation failed`);
+    
+    let decoded: any;
+    
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        decoded = verify(token, <string>process.env.JWT_ACCESS_SECRET);
+    }
+    catch(err) {
+        return res.status(500).json(err);
+    }
+
+    return decoded;
+}

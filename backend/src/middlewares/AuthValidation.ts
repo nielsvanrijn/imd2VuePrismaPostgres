@@ -12,7 +12,7 @@ export const isAuth = [
                 return await Promise.resolve();
             }
             catch(err) {
-                console.log(err, JSON.stringify(err));
+                console.log('auth err', JSON.stringify(err));
                 return await Promise.reject(new Error(err.message ? err.message : 'Invalid Token'));
             }
         })

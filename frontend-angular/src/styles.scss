@@ -1,3 +1,41 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
+
+// Variables
+@import 'variables';
+
+// Globals
+.h-screen-top-bar {
+	height: calc(100vh - 70px);
+}
+
+.h-w-content {
+	height: calc(100vh - 70px);
+	width: calc(100vw - 80px);
+	margin-left: 80px;
+}
+
+
+// Grouped utilities
+.btn-primary-colors {
+	@apply text-white bg-indigo-600 border border-transparent rounded-md shadow-sm;
+}
+.btn-primary-colors:hover {
+	@apply bg-indigo-700;
+}
+.btn-primary-colors:focus {
+	@apply outline-none ring-2 ring-offset-2 ring-indigo-600;
+}
+
+.btn-secondary-colors {
+	@apply text-indigo-600 bg-white border border-gray-300 rounded-md shadow-sm;
+}
+.btn-secondary-colors:hover {
+	@apply bg-gray-50;
+}
+.btn-secondary-colors:focus {
+	@apply outline-none ring-2 ring-offset-2 ring-indigo-600;
+}
+
+// utilities overwrite all other
 @import 'tailwindcss/utilities';

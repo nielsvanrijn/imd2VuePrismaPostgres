@@ -1,0 +1,67 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*"
+],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+		"no-shadow": "warn",
+		"indent": ["error", "tab"],
+		"@typescript-eslint/indent": ["error", "tab"],
+		"@typescript-eslint/strict-boolean-expressions": 0,
+		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/no-misused-promises": "off",
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"semi": "warn",
+		"no-empty-function": "off",
+		"@typescript-eslint/no-empty-function": ["off"],
+		"tailwind/class-order": "error",
+		"no-non-null-assertion": "off"
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+	  "parser": "@angular-eslint/template-parser",
+      "extends": [
+        "plugin:@angular-eslint/template/recommended",
+		"plugin:tailwind/recommended"
+      ],
+      "rules": {
+		"tailwind/class-order": "error"
+	}
+    }
+  ]
+}

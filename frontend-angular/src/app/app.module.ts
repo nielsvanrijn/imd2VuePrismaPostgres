@@ -12,6 +12,12 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AccountComponent } from './components/account/account.component';
 import { TokenInterceptor } from './token.interceptor';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { EditAccountComponent } from './components/account/edit-account/edit-account.component';
+import { ButtonComponent } from './components/ui/button/button.component';
+import { InputComponent } from './components/ui/input/input.component';
+import { AvatarComponent } from './components/ui/avatar/avatar.component';
+import { InputFileComponent } from './components/ui/input-file/input-file.component';
 
 @NgModule({
 	declarations: [
@@ -20,6 +26,12 @@ import { TokenInterceptor } from './token.interceptor';
 		LoginComponent,
 		RegisterComponent,
 		AccountComponent,
+		NavbarComponent,
+		EditAccountComponent,
+		ButtonComponent,
+		InputComponent,
+		AvatarComponent,
+		InputFileComponent,
 	],
 	imports: [
 		BrowserModule,
