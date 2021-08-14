@@ -24,10 +24,6 @@ export class InputFileComponent {
 		const element = event.target as HTMLInputElement;
 		if (element.files && element.files.length > 0) {
 			const file = element.files[0];
-			console.log('size', file.name);
-			console.log('size', file.size);
-			console.log('type', file.type);
-
 			if (this.supportedFileTypes.includes(file.type)) {
 				this.errors = [];
 				this.fileEvent.emit(file);

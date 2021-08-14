@@ -33,7 +33,7 @@ export const updateUser = async (req: Request, res: Response) => {
     const decoded = authValidationCheck(req, res, 'updateUser');
 
     try {
-        const { email, profile: {name, bio} } = req.body;
+        const { email, profile: {name, bio, avatar_url} } = req.body;
 
         const user = await prisma.user.update({
             where: { id: Number(decoded.userId) },
@@ -42,7 +42,8 @@ export const updateUser = async (req: Request, res: Response) => {
                 profile: {
                     update: {
                         name,
-                        bio
+                        bio,
+                        avatar_url
                     }
                 }
             },

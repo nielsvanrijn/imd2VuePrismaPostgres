@@ -39,17 +39,12 @@ export class EditAccountComponent implements OnInit {
 			);
 	}
 
-	// Oke leuk die async Pipe maar moet ik nu met [ngModel] gaan kutten om mijn url te setten?
-	// Dit werkt niet omdat in $user alleen een observable zit geen user data
-	// Als ik dat wil moet ik subscriben en als ik dat doe kan ik net zo goed alles via de subscribe doen (lijkt mij fijner)
-
-	// MAAR bij nader inzien doet mijn app-input al hetzelfde moet allen het voor app-file-input doen 🤨 doable maar niet idiaal (vind ik)
-
-	uploadAvatar(file: File){
-		console.log(file);
+	uploadAvatar(file: File) {
 		this.userService.updateCurrentUserAvatar(file).then((result: any) => {
-			console.log('here');
-			this.user$.pipe(map(user => user.profile!.avatar_url = result.url));
+			this.user$ = this.userService.getCurrentUser().pipe(map(user => {
+				user.profile!.avatar_url = result.url;
+				return user;
+			}));
 		}).catch((err) => {
 			console.log(err);
 		});
