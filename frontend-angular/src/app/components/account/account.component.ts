@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/User';
 import { HttpClient } from '@angular/common/http';
+import { defaultIfEmpty, filter, first, tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-account',
@@ -18,7 +19,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AccountComponent implements OnInit {
 	moment = moment;
-	user$!: Observable<User>;
 
 	public toggle = false;
 	public array = ['All', 'Actors', 'Movies', 'Genres', 'Directors'];
@@ -37,10 +37,14 @@ export class AccountComponent implements OnInit {
 
 	constructor(
 		public userService: UserService,
-	) {}
+	) { }
 
 	ngOnInit() {
-		this.user$ = this.userService.getCurrentUser();
+		this.userService.userSubject.pipe(
+			tap((user) => {
+				console.log(user);
+			}),
+		);
 	}
 
 }
