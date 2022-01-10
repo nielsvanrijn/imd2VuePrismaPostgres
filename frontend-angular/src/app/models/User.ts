@@ -13,5 +13,5 @@ export class User {
 	@Type(() => Date)
 	updatedAt!: Date;
 	
-	profile?: Profile
+	profile!: Profile
 }

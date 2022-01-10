@@ -7,17 +7,20 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../models/User';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { hash } from 'bcryptjs';
+import { shareReplay, filter } from 'rxjs/operators';
 @Injectable({
 	providedIn: 'root'
 })
 export class UserService {
-	public currentUserSubject = new BehaviorSubject<User | null>(null);
-	public currentUser: User | null = null;
 	public users: User[] = [];
+	public readonly userSubject = new BehaviorSubject<User | null>(null);
+	public readonly user$ = this.userSubject.asObservable().pipe(filter(isNonNull), shareReplay(1));
 
 	constructor(
 		private http: HttpClient
-	) { }
+	) {
+		this.getCurrentUser();
+	}
 
 	//old way may be usefull but meh
 	getAllUsers(): void {
@@ -29,15 +32,23 @@ export class UserService {
 		});
 	}
 
-	getCurrentUser(): Observable<User> {
-		return this.http.get<User>(`${environment.apiUrl}/user`);
+	getCurrentUser(): void {
+		this.http.get<User>(`${environment.apiUrl}/user`).toPromise().then((result) => {
+			this.userSubject.next(plainToClass(User, result));
+		}).catch((err) => {
+			console.log('userservice getCurrentUser error', err);
+		});
 	}
 	
-	updateCurrentUser(user: User): Observable<User> {
-		return this.http.patch<User>(`${environment.apiUrl}/user`, classToPlain(user));
+	updateCurrentUser(user: User) {
+		return this.http.patch<User>(`${environment.apiUrl}/user`, classToPlain(user)).toPromise().then((result) => {
+			this.userSubject.next(plainToClass(User, result));
+		}).catch((err) => {
+			console.log('userservice updateCurrentUser error', err);
+		});
 	}
 
-	async updateCurrentUserAvatar(file: File): Promise<Object> {
+	async updateCurrentUserAvatar(file: File): Promise<any> {
 		const hashedUsername = await hash(environment.uploadUserName, 12);
 		const hashedPassword = await hash(environment.uploadApiPass, 12);
 		
@@ -46,6 +57,13 @@ export class UserService {
 		
 		return this.http.post(environment.uploadApiUrl, formData, {headers: {
 			Authorization: 'Basic ' + btoa(`${hashedUsername}:${hashedPassword}`)
-		}}).toPromise();
+		}}).toPromise().then((result: any) => {
+			this.userSubject.getValue()!.profile.avatar_url = result.url;
+			this.userSubject.next(this.userSubject.getValue()!);
+		});
 	}
+}
+
+export function isNonNull<T>(value: T): value is NonNullable<T> {
+	return value != null;
 }

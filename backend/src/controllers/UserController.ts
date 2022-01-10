@@ -99,7 +99,7 @@ export const loginUser = async (req: Request, res: Response) => {
     });
 };
 
-// Create User
+// Create User / register
 export const createUser = async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
     const hashedPassword = await hash(password, 12);
@@ -159,6 +159,17 @@ export const refeshToken = async (req: Request, res: Response) => {
     });
 };
 
+// Logout
+export const logout = async (req: Request, res: Response) => {
+    res.cookie(
+        'rt',
+        '',
+        {httpOnly: true}
+    );
+
+    return res.status(200).send({ ok: true });
+};
+
 // Revoke token
 export const revokeUserRefeshToken = async (req: Request, res: Response) => {
     const { email } = req.body;
@@ -175,7 +186,7 @@ export const revokeUserRefeshToken = async (req: Request, res: Response) => {
         });
         return res.status(200).send({ ok: true });
     }
-    catch(err) {
+    catch(err: any) {
         console.log(err);
         return res.status(500).send(err.message ? err.message : 'Could not update user');
     }

@@ -2,7 +2,7 @@
 <div class="py-12 bg-gray-100 h-w-content">
 	<div class="flex mx-auto max-w-7xl">
 		<div [@fadeInAnimation]="{value:'',params:{d:'250ms'}}" class="flex-1 mr-2 overflow-hidden bg-white rounded-lg shadow">
-			<ng-container *ngIf="user$ | async as user; else loading">
+			<ng-container *ngIf="userService.user$ | async as user; else loading">
 				<div class="flex flex-wrap items-center justify-between">
 					<div class="px-6 py-5">
 						<h3 class="text-lg font-medium leading-6 text-gray-900">
@@ -30,7 +30,7 @@
 							<dt class="text-sm font-medium text-gray-500">
 								Full name
 							</dt>
-							<dd app-input [(inputModel)]="user.profile!.name" class="mt-1 text-sm text-gray-900"></dd>
+							<dd app-input [(inputModel)]="user.profile.name" class="mt-1 text-sm text-gray-900"></dd>
 						</div>
 						
 						<div class="col-span-1 pr-24">
@@ -44,7 +44,7 @@
 							<dt class="text-sm font-medium text-gray-500">
 								Bio
 							</dt>
-							<textarea [(ngModel)]="user.profile!.bio" name="bio" rows="3" class="block w-full max-w-lg mt-1 text-sm text-gray-900 border border-gray-300 rounded-md shadow-sm focus:ring-yellow-400 focus:border-yellow-400"></textarea>
+							<textarea [(ngModel)]="user.profile.bio" name="bio" rows="3" class="block w-full max-w-lg mt-1 text-sm text-gray-900 border border-gray-300 rounded-md shadow-sm focus:ring-yellow-400 focus:border-yellow-400"></textarea>
 						</div>
 						
 						<div class="col-span-1">
@@ -53,7 +53,7 @@
 							</dt>
 							<div class="mt-3">
 								<div class="flex items-center">
-									<span app-avatar [name]="user.profile!.name" [src]="user.profile!.avatar_url" class="grid w-12 h-12 overflow-hidden bg-gray-100 rounded-full"></span>
+									<span app-avatar [name]="user.profile.name" [src]="user.profile.avatar_url" class="grid w-12 h-12 overflow-hidden bg-gray-100 rounded-full"></span>
 									<app-input-file (fileEvent)="uploadAvatar($event)" [supportedFileTypes]="avatarFileTypes" label="Change" name="avatar"></app-input-file>
 								</div>
 							</div>
