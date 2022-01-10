@@ -1,6 +1,7 @@
 <div class="py-12 bg-gray-100 h-w-content">
 	<ng-container *ngIf="userService.user$ | async as user">
 		<div class="flex mx-auto max-w-7xl">
+			
 			<div [@fadeInAnimation]="{value:'',params:{d:'250ms'}}" class="flex-1 mr-2 overflow-hidden bg-white rounded-lg shadow">
 				<div class="flex flex-wrap items-center justify-between">
 					<div class="px-6 py-5">
@@ -58,7 +59,8 @@
 					</dl>
 				</div>
 			</div>
-			<div class="ml-2 overflow-hidden bg-white rounded-lg shadow flex-5">
+
+			<div [@fadeInAnimation]="{value:'',params:{d:'250ms'}}" class="ml-2 overflow-hidden bg-white rounded-lg shadow flex-5">
 				<div class="px-6 py-5">
 					<h3 class="text-lg font-medium leading-6 text-gray-900">
 						Profile Checklist
@@ -76,7 +78,7 @@
 										
 										<ng-container *ngIf="step.done; else second">
 											<!-- Heroicon name: solid/check-circle -->
-											<svg class="w-full h-full text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+											<svg class="w-full h-full text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
 												<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
 											</svg>
 										</ng-container>
@@ -86,8 +88,8 @@
 											</ng-container>
 										</ng-template>
 										<ng-template #third>
-											<span class="absolute w-4 h-4 bg-indigo-200 rounded-full"></span>
-											<span class="relative block w-2 h-2 bg-indigo-600 rounded-full"></span>
+											<span class="absolute w-4 h-4 bg-yellow-200 rounded-full"></span>
+											<span class="relative block w-2 h-2 bg-yellow-400 rounded-full"></span>
 										</ng-template>
 										
 									</span>
@@ -98,6 +100,7 @@
 					</nav>
 				</div>
 			</div>
+			
 		</div>
 	</ng-container>
 </div>

@@ -2,11 +2,9 @@ import { fadeInAnimation, fadeOut } from 'src/app/animations/fade.animation';
 import * as moment from 'moment';
 
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
-import { Observable } from 'rxjs';
+import { isNonNull, UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/User';
-import { HttpClient } from '@angular/common/http';
-import { defaultIfEmpty, filter, first, tap } from 'rxjs/operators';
+import { filter, first } from 'rxjs/operators';
 
 @Component({
 	selector: 'app-account',
@@ -40,11 +38,16 @@ export class AccountComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		this.userService.userSubject.pipe(
-			tap((user) => {
-				console.log(user);
-			}),
-		);
+		this.userService.userSubject.pipe(filter(isNonNull), first()).subscribe((user: User) => {
+			// console.log(user);
+			this.checkSteps(user);
+		});
+	}
+
+	checkSteps(user: User): void {
+		this.steps[1].done = !!user.profile.avatar_url;
+		this.steps[2].done = !!user.profile.bio;
+		// this.steps[3].done = user.profile
 	}
 
 }

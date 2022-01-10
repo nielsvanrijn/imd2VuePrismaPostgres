@@ -17,9 +17,6 @@ export class AuthService {
 	public loginErrors: any = {};
 	public registerErrors: any = {};
 
-	private readonly JWT_TOKEN = 'JWT_TOKEN';
-	private readonly REFRESH_TOKEN = 'REFRESH_TOKEN';
-
 	constructor(
 		public router: Router,
 		private http: HttpClient
@@ -31,6 +28,7 @@ export class AuthService {
 			password
 		};
 		this.http.post(`${environment.apiUrl}/login`, data, {withCredentials: true}).toPromise().then((result: any) => {
+			this.loginErrors = {};
 			this.router.navigate(['account']);
 			this.storeToken(result.accessToken);
 		}).catch((err) => {
@@ -49,8 +47,9 @@ export class AuthService {
 		const data = {
 			email,
 		};
-		this.http.post(`${environment.apiUrl}/revoke`, data, { withCredentials: true }).toPromise().then((result: any) => {
-			this.router.navigate(['account']);
+		this.http.post(`${environment.apiUrl}/logout`, data, { withCredentials: true }).toPromise().then((result: any) => {
+			this.storeToken('');
+			this.router.navigate(['']);
 		}).catch((err) => {
 			console.log('logout errors', err);
 		});
@@ -63,6 +62,7 @@ export class AuthService {
 			password
 		};
 		this.http.post(`${environment.apiUrl}/register`, data, { withCredentials: true }).toPromise().then(() => {
+			this.registerErrors = {};
 			this.router.navigate(['']);
 		}).catch((err) => {
 			console.log(err);
@@ -82,19 +82,14 @@ export class AuthService {
 	}
 
 	refreshToken() {
-		return this.http.post<any>(`${environment.apiUrl}/refesh_token`, {'refreshToken': this.getRefreshToken()}, { withCredentials: true })
+		return this.http.post<any>(`${environment.apiUrl}/refesh_token`, null, { withCredentials: true })
 			.pipe(tap((result: any) => {
-				// console.log('refesh_token', result);
 				this.storeToken(result.accessToken);
 			}));
 	}
 	
 	getJwtToken() {
 		return localStorage.getItem('ac');
-	}
-
-	private getRefreshToken() {
-		return localStorage.getItem(this.REFRESH_TOKEN);
 	}
 
 	private storeToken(token: string) {

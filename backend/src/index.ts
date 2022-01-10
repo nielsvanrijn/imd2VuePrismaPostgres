@@ -4,7 +4,7 @@ import express from 'express';
 import helmet from 'helmet';
 import * as bodyParser from 'body-parser';
 
-import { createUser, deleteUser, getUser, getUsers, loginUser, refeshToken, revokeUserRefeshToken, updateUser } from './controllers/UserController';
+import { createUser, deleteUser, getUser, getUsers, loginUser, logout, refeshToken, revokeUserRefeshToken, updateUser } from './controllers/UserController';
 import { validate } from './middlewares/ValidateMiddleware';
 import { createUserSchema, loginUserSchema, revokeUserRefeshTokenSchema, updateUserSchema } from './middlewares/UserValidation';
 import { isAuth } from './middlewares/AuthValidation';
@@ -29,6 +29,7 @@ app.post('/register', validate(createUserSchema), createUser);
 app.post('/login', validate(loginUserSchema), loginUser);
 app.post('/refesh_token', refeshToken);
 app.post('/revoke', validate(revokeUserRefeshTokenSchema), revokeUserRefeshToken);
+app.post('/logout', logout);
 
 // Profile
 app.listen(3000, () => console.log('🚀 Server ready at: http://localhost:3000'));

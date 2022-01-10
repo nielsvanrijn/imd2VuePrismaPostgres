@@ -14,6 +14,8 @@ import { UserService } from 'src/app/services/user.service';
 	]
 })
 export class NavbarComponent {
+
+	public showUserMenu = false;
 	
 	constructor(
 		public auth: AuthService,

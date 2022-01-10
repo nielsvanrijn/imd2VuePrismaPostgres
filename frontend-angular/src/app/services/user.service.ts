@@ -58,9 +58,8 @@ export class UserService {
 		return this.http.post(environment.uploadApiUrl, formData, {headers: {
 			Authorization: 'Basic ' + btoa(`${hashedUsername}:${hashedPassword}`)
 		}}).toPromise().then((result: any) => {
-			const localUser = this.userSubject.getValue()!.profile.avatar_url = result.url;
-			console.log(localUser);
-			this.userSubject.next(localUser);
+			this.userSubject.getValue()!.profile.avatar_url = result.url;
+			this.userSubject.next(this.userSubject.getValue()!);
 		});
 	}
 }

@@ -19,6 +19,7 @@ export const createUserSchema = [
                 })
                 .then(async (user) => {
                     if (user) {
+                        console.log(JSON.stringify(user));
                         return await Promise.reject(new Error('E-mail already in use'));
                     }
                     return await Promise.resolve();
@@ -51,7 +52,6 @@ export const updateUserSchema = [
 ];
 
 // Login
-let foundUser = false;
 export const loginUserSchema = [
     body('email').notEmpty().withMessage('Email is required').bail()
         .custom(async (value) => {
@@ -64,14 +64,11 @@ export const loginUserSchema = [
                 });
                 
             if (!user) {
-                foundUser = false;
                 return await Promise.reject(new Error('No users found with that E-mail'));
             }
-            foundUser = true;
             return await Promise.resolve();
         }),
     body('password').notEmpty().withMessage('Password is required').bail()
-        .if(() => foundUser).bail()
         .custom(async (value, meta) => {
             if (!value) return true;
             const user = await prisma.user
@@ -80,11 +77,10 @@ export const loginUserSchema = [
                         email: meta.req.body.email
                     }
                 });
-            if (!user) return await Promise.reject(new Error('Validation failed'));
+            if (!user) return true;
 
-            // const valid = await compare(value, user.password);
-            // if (!valid) return await Promise.reject(new Error('Invalid E-mail password combination'));
-
+            const valid = await compare(value, user.password);
+            if (!valid) return await Promise.reject(new Error('Invalid E-mail password combination'));
             return await Promise.resolve();
         })
 ];
