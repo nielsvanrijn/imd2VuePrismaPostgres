@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { ValidationChain, validationResult } from 'express-validator';
 
-export const validate = (schemas: ValidationChain[]) => async (req: Request, res: Response, next: NextFunction) => {
-    await Promise.all(schemas.map(async (schema) => await schema.run(req)));
+export const validate = (schemas?: ValidationChain[] ) => async (req: Request, res: Response, next: NextFunction) => {
+    if (schemas) await Promise.all(schemas.map(async (schema) => await schema.run(req)));
 
     const result = validationResult(req);
     if (result.isEmpty()) {

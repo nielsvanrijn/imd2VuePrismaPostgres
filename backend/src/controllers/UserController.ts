@@ -6,24 +6,59 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// Getters
-export const getUsers = async (req: Request, res: Response) => {
+// Create User / register
+export const createUser = async (req: Request, res: Response) => {
+    const { name, email, password } = req.body;
+    const hashedPassword = await hash(password, 12);
+    try {
+        await prisma.user.create({
+            data: {
+                email,
+                password: hashedPassword,
+                profile: {
+                    create: {
+                        name
+                    }
+                }
+            }
+        });
 
+        return res.status(200).send({ ok: true });
+    }
+    catch(e) {
+        console.log(e);
+        return res.status(500).send({ ok: false});
+    }
+};
+
+// Read User
+export const getUsers = async (req: Request, res: Response) => {
     const users = await prisma.user.findMany();
     return res.json(users);
 };
-
 export const getUser = async (req: Request, res: Response) => {
     const decoded = authValidationCheck(req, res, 'getUser');
 
     const user = await prisma.user.findUnique({
         where: { id: Number(decoded.userId) },
-        include: { profile: true },
+        select: {
+            id: true,
+            email: true,
+            role: true,
+            createdAt: true,
+            updatedAt: true,
+            profile: {
+                select: {
+                    id: true,
+                    name: true,
+                    bio: true,
+                    avatarUrl: true,
+                    createdAt: true,
+                    updatedAt: true
+                }
+            }
+        },
     });
-
-    if (!user) {
-        return res.status(404).send('Not Found');
-    }
 
     return res.json(user);
 };
@@ -33,7 +68,7 @@ export const updateUser = async (req: Request, res: Response) => {
     const decoded = authValidationCheck(req, res, 'updateUser');
 
     try {
-        const { email, profile: {name, bio, avatar_url} } = req.body;
+        const { email, profile: {name, bio, avatarUrl} } = req.body;
 
         const user = await prisma.user.update({
             where: { id: Number(decoded.userId) },
@@ -43,11 +78,27 @@ export const updateUser = async (req: Request, res: Response) => {
                     update: {
                         name,
                         bio,
-                        avatar_url
+                        avatarUrl
                     }
                 }
             },
-            include: { profile: true }
+            select: {
+                id: true,
+                email: true,
+                role: true,
+                createdAt: true,
+                updatedAt: true,
+                profile: {
+                    select: {
+                        id: true,
+                        name: true,
+                        bio: true,
+                        avatarUrl: true,
+                        createdAt: true,
+                        updatedAt: true
+                    }
+                }
+            },
         });
 
         return res.json(user);
@@ -59,34 +110,34 @@ export const updateUser = async (req: Request, res: Response) => {
 
 // Delete User
 export const deleteUser = async (req: Request, res: Response) => {
-    // const { id } = req.params
+    const { id } = req.params;
 
-    // try {
-    //     await prisma.post.deleteMany({
-    //         where: {
-    //             authorId: Number(id)
-    //         }
-    //     })
-    //     const user = await prisma.user.delete({
-    //         where: {
-    //             id: Number(id)
-    //         }
-    //     })
+    try {
+        await prisma.profile.delete({
+            where: {
+                userId: Number(id)
+            }
+        });
+        await prisma.user.delete({
+            where: {
+                id: Number(id)
+            }
+        });
 
-    //     return res.json(user)
-    // } catch (e) {
-    //     return res.status(404).send('User not found')
-    // }
+        return res.json({ ok: true });
+    } catch (err) {
+        return res.status(500).json(err);
+    }
 };
 
-// Auth
+// Login
 export const loginUser = async (req: Request, res: Response) => {
     const { email } = req.body;
     const user = await prisma.user.findUnique({
         where: { email },
     });
 
-    if (!user) return  res.status(500).json('Validation failed');
+    if (!user) return res.status(500).json('Validation failed');
 
     res.cookie(
         'rt',
@@ -97,31 +148,6 @@ export const loginUser = async (req: Request, res: Response) => {
     return res.status(200).json({
         accessToken: sign({userId: user.id}, <string>process.env.JWT_ACCESS_SECRET, {expiresIn: '15m'})
     });
-};
-
-// Create User / register
-export const createUser = async (req: Request, res: Response) => {
-    const { name, email, password } = req.body;
-    const hashedPassword = await hash(password, 12);
-    try {
-        const user = await prisma.user.create({
-            data: {
-                email,
-                password: hashedPassword,
-            }
-        });
-        await prisma.profile.create({
-            data: {
-                name,
-                user: { connect: { id: user.id } }
-            },
-        });
-    }
-    catch(e) {
-        console.log(e);
-        return res.status(500).send({ ok: false});
-    }
-    return res.status(200).send({ ok: true });
 };
 
 // Refesh token
@@ -184,6 +210,7 @@ export const revokeUserRefeshToken = async (req: Request, res: Response) => {
             where: { email },
             data: { tokenVersion: user.tokenVersion + 1 },
         });
+
         return res.status(200).send({ ok: true });
     }
     catch(err: any) {
@@ -200,10 +227,10 @@ function authValidationCheck(req: Request, res: Response, functionName = ''): an
     try {
         const token = req.headers.authorization.split(' ')[1];
         decoded = verify(token, <string>process.env.JWT_ACCESS_SECRET);
+
+        return decoded;
     }
     catch(err) {
         return res.status(500).json(err);
     }
-
-    return decoded;
 }

@@ -1,0 +1,58 @@
+<div class="py-12 bg-gray-100 h-w-content">
+	<div class="flex mx-auto max-w-7xl" *ngIf="movie$ | async as movie">
+		<div [@fadeInAnimation]="{value:'',params:{d:'250ms'}}" class="flex-1 mr-4 bg-white rounded-lg shadow">
+			<div class="flex flex-wrap items-center justify-between">
+				<div class="px-6 py-5">
+					<h3 class="text-lg font-medium leading-6 text-gray-900">
+						{{ id ? 'Update' : 'Create'}} a movie
+					</h3>
+					<p class="max-w-2xl mt-1 text-sm text-gray-500">
+						Please {{ id ? 'update' : 'add'}} movie details here.
+					</p>
+				</div>
+				<div class="flex-shrink-0 px-6 py-5">
+					<button (click)="id ? callUpdateMovie(movie) : callCreateMovie(movie)" class="mr-4 " app-button [label]="id ? 'Update' : 'Save'" iconStyle="solid" icon="fa-save" iconPosition="right" design="primary" size="small" color="primary"></button>
+					<button (click)="router.navigate(['movies'])" app-button label="Back" iconStyle="solid" icon="fa-reply" iconPosition="right" design="secondary" size="small" color="primary"></button>
+				</div>
+			</div>
+			<div class="px-6 py-5 border-t border-gray-200">
+				<div class="grid grid-cols-12 gap-x-8 gap-y-4">
+					
+					<div class="col-span-2 row-span-3">
+						<div class="flex flex-col h-full">
+							<dt class="text-sm font-medium text-gray-500">
+								Poster
+							</dt>
+							<div class="flex-1 mt-1 bg-gray-100 bg-center bg-cover border border-gray-400 rounded-lg" [ngClass]="{'!border-none shadow' : movie.posterUrls}" [style]="movie.posterUrls ? 'background-image: url(' + movie.posterUrls[0] + ');' : ''">
+								
+							</div>		
+							<div class="mt-3">
+								<div class="flex items-center">
+									<app-input-file (fileEvent)="callUploadMoviePoster($event)" [supportedFileTypes]="moviePosterFileTypes" label="+" name="moviePoster"></app-input-file>
+								</div>
+								{{movie.genres}}
+							</div>
+						</div>
+					</div>
+					
+					<div app-input label="Title" [(inputModel)]="movie.name" placeholder="Finding Nemo" name="name" [errors]="errorResponse" [required]="true" class="col-span-4"></div>
+
+					<div app-input label="Year" [(inputModel)]="movie.year" placeholder="2003" [type]="'number'" name="year" [errors]="errorResponse" class="col-span-3"></div>
+
+					<div app-input label="Lenght in minutes" [(inputModel)]="movie.lenght" placeholder="100" [type]="'number'" [duration]="true" name="lenght" [errors]="errorResponse" class="col-span-3"></div>
+
+					<div app-text-area label="Description" [(inputModel)]="movie.description" placeholder="After his son is captured in the Great Barrier Reef and taken to Sydney, a timid clownfish sets out on a journey to bring him home." name="bio" rows="5" [errors]="errorResponse" class="col-span-10"></div>
+
+					<div app-select label="Genres" [(inputModel)]="movie.genres" [options]="genres" class="col-span-5"></div>
+
+					<div app-select label="Writers" [(inputModel)]="movie.writers" [options]="persons" labelKey="fullName" class="col-span-5"></div>
+					
+					<div app-select label="Directors" [(inputModel)]="movie.directors" [options]="persons" labelKey="fullName" class="col-span-5 col-start-3"></div>
+
+					<div app-select label="Cast" [(inputModel)]="movie.cast" [options]="persons" labelKey="fullName" class="col-span-5"></div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

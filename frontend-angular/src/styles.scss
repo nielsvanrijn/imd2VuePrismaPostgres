@@ -1,8 +1,6 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
 
-// Variables
-@import 'variables';
 
 // Globals
 .h-screen-top-bar {
@@ -14,7 +12,6 @@
 	width: calc(100vw - 80px);
 	margin-left: 80px;
 }
-
 
 // Grouped utilities
 .btn-primary-colors {
@@ -43,5 +40,9 @@
 	@apply outline-none ring-2 ring-offset-2 ring-yellow-400;
 }
 
-// utilities overwrite all other
-@import 'tailwindcss/utilities';
+.spin-button-none::-webkit-outer-spin-button,
+.spin-button-none::-webkit-inner-spin-button {
+	appearance: none;
+}
+
+@import "tailwindcss/utilities";

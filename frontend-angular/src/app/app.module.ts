@@ -4,41 +4,65 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgIconsModule } from '@ng-icons/core';
+import { HeroUsers, HeroChevronDownSolid, HeroCheckCircleSolid, HeroSearchSolid, HeroFilm, HeroUserCircle, HeroPlusSm, HeroSelectorSolid } from '@ng-icons/heroicons';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UsersComponent } from './components/users/users.component';
-import { LoginComponent } from './components/auth/login/login.component';
-import { RegisterComponent } from './components/auth/register/register.component';
-import { AccountComponent } from './components/account/account.component';
+import { ClickOutsideDirective } from './directives/click-outside.directive';
 import { TokenInterceptor } from './token.interceptor';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { EditAccountComponent } from './components/account/edit-account/edit-account.component';
-import { ButtonComponent } from './components/ui/button/button.component';
-import { InputComponent } from './components/ui/input/input.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { RegisterComponent } from './pages/auth/register/register.component';
+import { InputFileComponent } from './components/form/input-file/input-file.component';
+import { InputComponent } from './components/form/input/input.component';
 import { AvatarComponent } from './components/ui/avatar/avatar.component';
-import { InputFileComponent } from './components/ui/input-file/input-file.component';
+import { EditAccountComponent } from './pages/account/edit-account/edit-account.component';
+import { AccountComponent } from './pages/account/account/account.component';
+import { MovieComponent } from './pages/movie/movie/movie.component';
+import { MoviesComponent } from './pages/movie/movies/movies.component';
+import { SingleSelectComponent } from './components/form/single-select/single-select.component';
+import { ButtonComponent } from './components/form/button/button.component';
+import { TextAreaComponent } from './components/form/textarea/textarea.component';
+import { SelectComponent } from './components/form/select/select.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		UsersComponent,
+		ClickOutsideDirective,
+		NavbarComponent,
 		LoginComponent,
 		RegisterComponent,
-		AccountComponent,
-		NavbarComponent,
-		EditAccountComponent,
-		ButtonComponent,
+		InputFileComponent,
 		InputComponent,
 		AvatarComponent,
-		InputFileComponent,
+		EditAccountComponent,
+		AccountComponent,
+		MovieComponent,
+		MoviesComponent,
+		SingleSelectComponent,
+		ButtonComponent,
+		TextAreaComponent,
+  		SelectComponent,
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
 		HttpClientModule,
 		FormsModule,
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+		NgIconsModule.withIcons({
+			HeroUsers,
+			HeroChevronDownSolid,
+			HeroCheckCircleSolid,
+			HeroSearchSolid,
+			HeroFilm,
+			HeroUserCircle,
+			HeroPlusSm,
+			HeroSelectorSolid,
+		}),
+  		FontAwesomeModule,
 	],
 	providers: [
 		{

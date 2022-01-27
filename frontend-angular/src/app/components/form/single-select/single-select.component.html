@@ -1,0 +1,15 @@
+<div appClickOutside (clickOutside)="open = false" class="relative inline-block text-left">
+	<div>
+		<button type="button" (click)="open = !open" class="inline-flex justify-center text-sm font-medium text-gray-700 group hover:text-gray-900" id="menu-button" aria-expanded="false" aria-haspopup="true">
+			{{ label }}
+			<ng-icon class="flex-shrink-0 ml-1 -mr-1 text-xl text-gray-400 group-hover:text-gray-500" name="hero-chevron-down-solid"></ng-icon>
+		</button>
+	</div>
+	<div [@singleSelectHideShowAnimation] *ngIf="open" class="absolute left-0 w-40 mt-2 origin-top-left bg-white rounded-md shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none"  role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+		<div class="py-1" role="none">
+			<div *ngFor="let option of options; index as optionIndex" (click)="toggle(option)" class="block px-4 py-2 text-sm font-medium hover:bg-gray-100 hover:cursor-pointer" [ngClass]="[option[toggleKey] ? 'text-gray-900' : 'text-gray-500']" role="menuitem" [tabindex]="optionIndex">
+				{{ option[labelKey] }}
+			</div>
+		</div>
+	</div>
+</div>

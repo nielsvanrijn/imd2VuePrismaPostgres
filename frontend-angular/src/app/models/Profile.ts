@@ -2,8 +2,7 @@ export class Profile {
 	id!: number;
 	name!: string;
 	bio?: string;
-	avatar_url?: string;
-	userId!: number;
+	avatarUrl?: string;
 	createdAt!: Date;
 	updatedAt!: Date;
 }

@@ -20,9 +20,7 @@
 						<label for="search" class="sr-only">Search</label>
 						<div class="relative">
 							<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-								<svg class="w-5 h-5 text-gray-400" name="solid/search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-									<path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-								</svg>
+								<ng-icon class="text-xl text-gray-400" name="hero-search-solid"></ng-icon>
 							</div>
 							<input id="search" name="search" class="block w-full py-2 pl-10 pr-3 text-sm placeholder-gray-500 bg-white border border-gray-300 rounded-md focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="Search" type="search">
 						</div>
@@ -32,7 +30,7 @@
 
 			<div class="hidden lg:flex lg:items-center lg:justify-end xl:col-span-4">
 				<div class="relative ml-3">
-					<span app-avatar (click)="showUserMenu = !showUserMenu" *ngIf="userService.user$ | async as user" [name]="user.profile.name" [src]="user.profile.avatar_url" class="grid overflow-hidden bg-gray-100 rounded-full w-9 h-9"></span>
+					<span app-avatar (click)="showUserMenu = !showUserMenu" *ngIf="userService.user$ | async as user" [name]="user.profile.name" [src]="user.profile.avatarUrl" class="grid overflow-hidden bg-gray-100 rounded-full w-9 h-9"></span>
 		
 					<!--
 						Dropdown menu, show/hide based on menu state.
@@ -44,7 +42,7 @@
 							From: "transform opacity-100 scale-100"
 							To: "transform opacity-0 scale-95"
 					-->
-					<div *ngIf="showUserMenu" class="absolute right-0 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+					<div *ngIf="showUserMenu" class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
 						<!-- Active: "bg-gray-100", Not Active: "" -->
 						<a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
 			
@@ -60,56 +58,19 @@
 	</div>
 </header>
 
-
 <!-- Narrow sidebar-->
 <nav aria-label="Sidebar" class="absolute flex-shrink-0 overflow-y-auto bg-gray-800 h-screen-top-bar">
 	<div class="relative flex flex-col w-20 p-3 space-y-3">
-		<a href="#" class="inline-flex items-center justify-center flex-shrink-0 text-white bg-gray-900 rounded-lg h-14 w-14">
-			<span class="sr-only">Open</span>
-			<!-- Heroicon name: outline/inbox -->
-			<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-			</svg>
+
+		<a routerLink="/movies" routerLinkActive="text-white bg-gray-900" class="inline-flex items-center justify-center flex-shrink-0 text-gray-400 bg-gray-900 rounded-lg hover:bg-gray-700 h-14 w-14">
+			<span class="sr-only">Movies</span>
+			<ng-icon class="text-2xl" name="hero-film"></ng-icon>
 		</a>
 
-		<a href="#" class="inline-flex items-center justify-center flex-shrink-0 text-gray-400 rounded-lg hover:bg-gray-700 h-14 w-14">
-			<span class="sr-only">Archive</span>
-			<!-- Heroicon name: outline/archive -->
-			<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-			</svg>
+		<a routerLink="/account" routerLinkActive="text-white bg-gray-900" class="inline-flex items-center justify-center flex-shrink-0 text-gray-400 bg-gray-900 rounded-lg hover:bg-gray-700 h-14 w-14">
+			<span class="sr-only">Account</span>
+			<ng-icon class="text-2xl" name="hero-user-circle"></ng-icon>
 		</a>
 
-		<a href="#" class="inline-flex items-center justify-center flex-shrink-0 text-gray-400 rounded-lg hover:bg-gray-700 h-14 w-14">
-			<span class="sr-only">Customers</span>
-			<!-- Heroicon name: outline/user-circle -->
-			<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-			</svg>
-		</a>
-
-		<a href="#" class="inline-flex items-center justify-center flex-shrink-0 text-gray-400 rounded-lg hover:bg-gray-700 h-14 w-14">
-			<span class="sr-only">Flagged</span>
-			<!-- Heroicon name: outline/flag -->
-			<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
-			</svg>
-		</a>
-
-		<a href="#" class="inline-flex items-center justify-center flex-shrink-0 text-gray-400 rounded-lg hover:bg-gray-700 h-14 w-14">
-			<span class="sr-only">Spam</span>
-			<!-- Heroicon name: outline/ban -->
-			<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-			</svg>
-		</a>
-
-		<a href="#" class="inline-flex items-center justify-center flex-shrink-0 text-gray-400 rounded-lg hover:bg-gray-700 h-14 w-14">
-			<span class="sr-only">Drafts</span>
-			<!-- Heroicon name: outline/pencil-alt -->
-			<svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-			</svg>
-		</a>
 	</div>
 </nav>

@@ -36,17 +36,40 @@ export const fadeInAnimation = trigger('fadeInAnimation',
 	]
 );
 
-export function fadeOut(duration = '100ms', timingFunction = 'ease-in') {
-	return trigger(
-		'fadeOutAnimation', 
-		[
-			transition(
-				':leave', 
-				[
-					style({ opacity: 1 }),
-					animate(`${duration} ${timingFunction}`, style({ opacity: 0 }))
-				]
-			)
-		]
-	);
-}
+export const singleSelectHideShowAnimation = trigger("singleSelectHideShowAnimation",
+	[
+		transition(
+			':enter', 
+			[
+				style({ opacity: 0, transform: "scale(0.95, 0.95)" }),
+				animate('100ms ease-out', style({ opacity: 1, transform: "scale(1, 1)" }))
+			]
+		),
+		transition(
+			':leave', 
+			[
+				style({ opacity: 1, transform: "scale(1, 1)" }),
+				animate('75ms ease-in', style({ opacity: 0, transform: "scale(0.95, 0.95)" }))
+			]
+		)
+	]
+);
+
+export const selectHideShowAnimation = trigger("singleSelectHideShowAnimation",
+	[
+		// transition(
+		// 	':enter', 
+		// 	[
+		// 		style({ opacity: 0, transform: "scale(0.95, 0.95)" }),
+		// 		animate('100ms ease-out', style({ opacity: 1, transform: "scale(1, 1)" }))
+		// 	]
+		// ),
+		transition(
+			':leave', 
+			[
+				style({ opacity: 1 }),
+				animate('100ms ease-in', style({ opacity: 0 }))
+			]
+		)
+	]
+);
