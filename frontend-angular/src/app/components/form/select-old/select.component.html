@@ -1,13 +1,13 @@
 <div appClickOutside (clickOutside)="open = false">
-	<label *ngIf="label" id="listbox-label" class="block mb-1 text-sm font-medium text-gray-700">
+	<label *ngIf="label" id="listbox-label" class="block text-sm font-medium text-gray-700">
 		{{ label }}
 	</label>
-	<div class="relative">
+	<div class="relative mt-1">
 		<button
 			type="button"
 			(click)="open = !open"
-			class="relative w-full py-2 pl-3 text-left bg-white border border-gray-300 rounded-md shadow-sm cursor-default pr-9 focus:outline-none focus:ring-1 focus:ring-primary-400 focus:border-primary-400"
-			[ngClass]="{'text-red-600 placeholder-red-300 border-red-300 focus:!ring-red-500 focus:!border-red-500 pr-10' : error, 'py-1': size === 'sm'}"
+			class="relative w-full py-2 pl-3 pr-10 text-left bg-white border border-gray-300 rounded-md shadow-sm cursor-default focus:outline-none focus:ring-1 focus:ring-primary-400 focus:border-primary-400 sm:text-sm"
+			[ngClass]="{'text-red-600 placeholder-red-300 border-red-300 focus:!ring-red-500 focus:!border-red-500 pr-10' : error}"
 			aria-haspopup="listbox"
 			attr.aria-expanded="{{open}}"
 			attr.aria-labelledby="listbox-label"
@@ -33,7 +33,7 @@
 		<ul
 			[@singleSelectHideShowAnimation]
 			*ngIf="open"
-			class="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none"
+			class="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
 			tabindex="-1"
 			role="listbox"
 			aria-labelledby="listbox-label"
@@ -44,17 +44,17 @@
 				class="relative py-2 pl-3 text-gray-900 cursor-default select-none pr-9"
 				[ngClass]="{'!text-white !bg-primary-400' : highlightedOptionIndex === optionIndex}"
 				role="option"
-				id="{{ _get(option, compareKey) }}"
+				id="{{option[dataKey]}}"
 				attr.data-index="{{optionIndex}}"
 				(mouseover)="highlightedOptionIndex = optionIndex" (mouseout)="highlightedOptionIndex = -1"
 				(click)="toggleOption(option)"
 			>
 				<div class="flex items-center">
-					<span class="block ml-3 font-normal truncate" [ngClass]="{'!font-semibold' : isSelected(option)}">
-						{{ _get(option, labelKey) }}
+					<span class="block ml-3 font-normal truncate" [ngClass]="{'!font-semibold' : single ? selectedOption === option[dataKey] : selectedOptions.includes(option[dataKey])}">
+						{{ option[labelKey] }}
 					</span>
 				</div>
-				<span *ngIf="isSelected(option)" class="absolute inset-y-0 right-0 flex items-center pr-4 text-primary-400" [ngClass]="{'!text-white' : highlightedOptionIndex === optionIndex}">
+				<span *ngIf="single ? selectedOption === option[dataKey] : selectedOptions.includes(option[dataKey])" class="absolute inset-y-0 right-0 flex items-center pr-4 text-primary-400" [ngClass]="{'!text-white' : highlightedOptionIndex === optionIndex}">
 					<fa-icon class="text-base" icon="check"></fa-icon>
 				</span>
 			</li>

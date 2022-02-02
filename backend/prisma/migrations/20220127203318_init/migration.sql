@@ -42,7 +42,7 @@ CREATE TABLE "Movie" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "year" INTEGER,
-    "lenght" INTEGER,
+    "length" INTEGER,
     "description" TEXT,
     "posterUrls" TEXT[],
     "trailerUrls" TEXT[],

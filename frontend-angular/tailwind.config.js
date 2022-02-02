@@ -14,6 +14,12 @@ module.exports = {
                 success: colors.green,
                 danger: colors.red,
             },
+			objectPosition: {
+				'avatar': 'center -0.5rem',
+			},
+			flex: {
+				'2': '2 2 0%'
+			}
 		},
 	},
 	variants: {

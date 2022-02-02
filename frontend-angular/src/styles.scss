@@ -3,12 +3,12 @@
 
 
 // Globals
-.h-screen-top-bar {
-	height: calc(100vh - 70px);
+body {
+	@apply bg-gray-800;
 }
 
 .h-w-content {
-	height: calc(100vh - 70px);
+	min-height: calc(100vw - 70px);
 	width: calc(100vw - 80px);
 	margin-left: 80px;
 }

@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 // Create a single Person
 export const createPerson = async (req: Request, res: Response) => {
-    const { firstName, lastName, birthday, countryId, bio, directors, writers, characters, cast } = req.body;
+    const { firstName, lastName, birthday, countryId, bio, avatarUrl, directors, writers, characters, cast } = req.body;
 
     try {
         const person = await prisma.person.create({
@@ -16,6 +16,7 @@ export const createPerson = async (req: Request, res: Response) => {
                 birthday,
                 countryId,
                 bio,
+                avatarUrl,
                 director: {
                     createMany: {
                         skipDuplicates: true,
@@ -99,7 +100,7 @@ export const getPerson = async (req: Request, res: Response) => {
 
 // Update a single Person
 export const updatePerson = async (req: Request, res: Response) => {
-    const { firstName, lastName, birthday, countryId, bio, directors, writers, characters, cast } = req.body;
+    const { firstName, lastName, birthday, countryId, bio, avatarUrl, directors, writers, characters, cast } = req.body;
     const { id } = req.params;
 
     try {
@@ -113,6 +114,7 @@ export const updatePerson = async (req: Request, res: Response) => {
                 birthday,
                 countryId,
                 bio,
+                avatarUrl,
                 director: {
                     createMany: {
                         skipDuplicates: true,

@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { instanceToPlain } from 'class-transformer';
 import { environment } from 'src/environments/environment';
 import { Movie } from '../models/Movie';
 import { Genre } from '../models/Genre';

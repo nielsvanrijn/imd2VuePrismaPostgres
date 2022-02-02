@@ -238,7 +238,7 @@
 		</div>
 		<div class="grid grid-cols-8 mx-auto mt-4 max-w-7xl gap-x-8 gap-y-4">
 			<div *ngFor="let movie of movies; index as optionIndex" class="flex flex-col col-span-1 h-60">
-				<div (click)="router.navigate(['movie', movie.id])" class="flex-1 grow-[2.3] mt-1 bg-gray-100 bg-center bg-cover border border-gray-400 rounded-lg" [ngClass]="{'!border-none shadow' : movie.posterUrls}" [style]="movie.posterUrls ? 'background-image: url(' + movie.posterUrls[0] + ');' : ''"></div>
+				<div (click)="router.navigate(['movie', movie.id])" class="flex-1 grow-[2.3] mt-1 bg-gray-100 bg-center bg-cover border border-gray-400 rounded-lg" [ngClass]="{'!border-none shadow' : movie.hasPoster}" [style]="movie.hasPoster ? 'background-image: url(' + movie.posterUrls[0] + ');' : ''"></div>
 				<p class="flex-1 mt-1 text-sm">{{ movie.name }}</p>
 				<p (click)="movieService.deleteMovie(movie.id)" class="hover:cursor-pointer hover:text-primary-500">x</p>
 			</div>

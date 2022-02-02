@@ -57,7 +57,7 @@ model Movie {
   id			Int			@id @default(autoincrement())
   name			String
   year			Int?
-  lenght		Int?
+  length		Int?
   description	String?
   posterUrls	String[]
   trailerUrls	String[]
@@ -76,6 +76,7 @@ model Person {
   country		Country		@relation(fields: [countryId], references: [id])
   countryId		Int
   bio			String
+  avatarUrl		String
   director		DirectorsOnMovies[]
   writer		WritersOnMovies[]
   character		CharactersOnPersons[]

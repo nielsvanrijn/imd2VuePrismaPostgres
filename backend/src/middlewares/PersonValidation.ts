@@ -2,31 +2,20 @@ import { body, oneOf, param } from 'express-validator';
 
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
-// 	id			Int			@id @default(autoincrement())
-// 	firstName	String
-// 	lastName		String
-// 	birthday		DateTime
-// 	country		Country @relation(fields: [countryId], references: [id])
-// 	countryId		Int
-// 	bio			String
-// 	director		DirectorsOnMovies[]
-// 	writer		WritersOnMovies[]
-// 	character		CharactersOnPersons[]
-// 	cast			CastOnMovies[]
 
 // Create a single Person
 export const createPersonSchema = [
     body('firstName', 'firstName is required')
-        .notEmpty().withMessage('firstName must not be empty').bail()
+        .notEmpty().withMessage('firstName must not be empty')
         .isString().withMessage('firstName must a string'),
     body('lastName', 'lastName is required')
-        .notEmpty().withMessage('lastName must not be empty').bail()
+        .notEmpty().withMessage('lastName must not be empty')
         .isString().withMessage('lastName must a string'),
     body('birthday', 'birthday is required')
-        .notEmpty().withMessage('birthday must not be empty').bail()
+        .notEmpty().withMessage('birthday must not be empty')
         .isDate().withMessage('birthday must be an date'),
     body('countryId', 'countryId is required')
-        .notEmpty().withMessage('countryId must not be empty').bail()
+        .notEmpty().withMessage('countryId must not be empty')
         .isNumeric().withMessage('countryId must be numeric')
         .custom(async (value) => {
             if (!value) return true;
@@ -40,6 +29,12 @@ export const createPersonSchema = [
             if (!country) return await Promise.reject(new Error('No counties found with that id'));
             return await Promise.resolve();
         }),
+    body('bio', 'biography is required')
+        .notEmpty().withMessage('biography must not be empty')
+        .isString().withMessage('biography must a string'),
+    body('avatarUrl', 'avatarUrl is required')
+        .notEmpty().withMessage('avatarUrl must not be empty')
+        .isString().withMessage('avatarUrl must a string'),
     body('directors')
         .isArray().withMessage('directors must be an array'),
     body('directors.*')
@@ -72,16 +67,16 @@ export const updatePersonSchema = [
         .isNumeric().withMessage('id must be numeric').bail(),
     oneOf([
         body('firstName', 'firstName is required')
-            .notEmpty().withMessage('firstName must not be empty').bail()
+            .notEmpty().withMessage('firstName must not be empty')
             .isString().withMessage('firstName must a string'),
         body('lastName', 'lastName is required')
-            .notEmpty().withMessage('lastName must not be empty').bail()
+            .notEmpty().withMessage('lastName must not be empty')
             .isString().withMessage('lastName must a string'),
         body('birthday', 'birthday is required')
-            .notEmpty().withMessage('birthday must not be empty').bail()
+            .notEmpty().withMessage('birthday must not be empty')
             .isDate().withMessage('birthday must be an date'),
         body('countryId', 'countryId is required')
-            .notEmpty().withMessage('countryId must not be empty').bail()
+            .notEmpty().withMessage('countryId must not be empty')
             .isNumeric().withMessage('countryId must be numeric')
             .custom(async (value) => {
                 if (!value) return true;
@@ -95,6 +90,12 @@ export const updatePersonSchema = [
                 if (!country) return await Promise.reject(new Error('No counties found with that id'));
                 return await Promise.resolve();
             }),
+        body('bio', 'biography is required')
+            .notEmpty().withMessage('biography must not be empty')
+            .isString().withMessage('biography must a string'),
+        body('avatarUrl', 'avatarUrl is required')
+            .notEmpty().withMessage('avatarUrl must not be empty')
+            .isString().withMessage('avatarUrl must a string'),
         body('directors')
             .isArray().withMessage('directors must be an array'),
         body('writers')

@@ -2,7 +2,7 @@ export const movies = [
     {
         name: 'The Man With The Golden Code',
         year: 2020,
-        lenght: 94,
+        length: 94,
         description: 'Bond is back in this new movie!',
         genres: {
             createMany: {
@@ -16,7 +16,7 @@ export const movies = [
     {
         name: 'The Man With The Golden Code 2',
         year: 2021,
-        lenght: 91,
+        length: 91,
         description: 'Bond is captured by the man with the golden code.',
         genres: {
             createMany: {

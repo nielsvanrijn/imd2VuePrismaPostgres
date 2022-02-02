@@ -25,6 +25,7 @@ import { MoviesComponent } from './pages/movie/movies/movies.component';
 import { SingleSelectComponent } from './components/form/single-select/single-select.component';
 import { ButtonComponent } from './components/form/button/button.component';
 import { TextAreaComponent } from './components/form/textarea/textarea.component';
+import { SelectOldComponent } from './components/form/select-old/select.component';
 import { SelectComponent } from './components/form/select/select.component';
 
 @NgModule({
@@ -44,7 +45,8 @@ import { SelectComponent } from './components/form/select/select.component';
 		SingleSelectComponent,
 		ButtonComponent,
 		TextAreaComponent,
-  		SelectComponent,
+  		SelectOldComponent,
+    	SelectComponent,
 	],
 	imports: [
 		BrowserModule,

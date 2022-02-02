@@ -1,25 +1,31 @@
-// const moment = require('moment');
-import { Transform } from 'class-transformer';
-import * as moment from 'moment';
+import { Expose, Transform } from 'class-transformer';
+import { Cast } from './Cast';
+import { Genre } from './Genre';
 
 export class Movie {
 	id!: number;
 	name!: string;
 	year?: number;
-	lenght?: number;
+	length?: number;
 	description?: string;
 	posterUrls: string[];
 	trailerUrls?: string[];
+
+	@Transform(({ value }) => value.some((v: any) => Object.hasOwnProperty.call(v, 'person')) ? value.map((v: any) => v.person, { toClassOnly: true }) : value)
 	directors?: number[];
+
+	@Transform(({ value }) => value.some((v: any) => Object.hasOwnProperty.call(v, 'person')) ? value.map((v: any) => v.person, { toClassOnly: true }) : value)
 	writers?: number[];
-	cast?: number[];
+
+	cast: Cast[];
+
+	@Transform(({ value }) => value.some((v: any) => Object.hasOwnProperty.call(v, 'genre')) ? value.map((v: any) => v.genre, { toClassOnly: true }) : value)
+	genres?: Genre[];
 	
-	@Transform(({ value }) => value.some((v: any) => Object.hasOwnProperty.call(v, 'genre')) ? value.map((v: any) => v.genre.id, { toClassOnly: true }) : value)
-	genres?: number[];
 	createdAt!: Date;
 	updatedAt!: Date;
-	
-	get lengthHumanized() {
-		return moment.duration(this.lenght).humanize();
+
+	get hasPoster(): boolean {
+		return this.posterUrls && this.posterUrls.length > 0;
 	}
 }
