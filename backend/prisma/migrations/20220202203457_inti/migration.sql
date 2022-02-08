@@ -60,6 +60,7 @@ CREATE TABLE "Person" (
     "birthday" TIMESTAMP(3) NOT NULL,
     "countryId" INTEGER NOT NULL,
     "bio" TEXT NOT NULL,
+    "avatarUrl" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -97,16 +98,6 @@ CREATE TABLE "GenresOnMovies" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "GenresOnMovies_pkey" PRIMARY KEY ("movieId","genreId")
-);
-
--- CreateTable
-CREATE TABLE "CharactersOnPersons" (
-    "personId" INTEGER NOT NULL,
-    "characterId" INTEGER NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "CharactersOnPersons_pkey" PRIMARY KEY ("personId","characterId")
 );
 
 -- CreateTable
@@ -157,12 +148,6 @@ ALTER TABLE "GenresOnMovies" ADD CONSTRAINT "GenresOnMovies_movieId_fkey" FOREIG
 
 -- AddForeignKey
 ALTER TABLE "GenresOnMovies" ADD CONSTRAINT "GenresOnMovies_genreId_fkey" FOREIGN KEY ("genreId") REFERENCES "Genre"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "CharactersOnPersons" ADD CONSTRAINT "CharactersOnPersons_personId_fkey" FOREIGN KEY ("personId") REFERENCES "Person"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "CharactersOnPersons" ADD CONSTRAINT "CharactersOnPersons_characterId_fkey" FOREIGN KEY ("characterId") REFERENCES "Character"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "DirectorsOnMovies" ADD CONSTRAINT "DirectorsOnMovies_movieId_fkey" FOREIGN KEY ("movieId") REFERENCES "Movie"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { selectHideShowAnimation } from 'src/app/animations/fade.animation';
 import { get } from 'lodash';
 
@@ -9,7 +9,8 @@ import { get } from 'lodash';
 	styleUrls: ['./select.component.scss'],
 	animations: [
 		selectHideShowAnimation
-	]
+	],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectComponent implements OnInit {
 	@Input() label?: string;
@@ -17,18 +18,21 @@ export class SelectComponent implements OnInit {
 	@Input() options: Array<any> = [];
 	@Input() labelKey = 'name';
 	@Input() compareKey = 'id';
-	@Input() sort: 'labelKey' | 'dataKey' | 'compareKey' | null = null;
+	@Input() avatarKey: string | null = null;
+	@Input() sort: 'labelKey' | 'compareKey' | null = null;
 	@Input() placeholder? = 'Please select an option';
 	@Input() errors?: Array<{location: string; msg: string; param: string}>;
+	@Input() filter? = true;
 	@Input() single? = false;
 	@Input() size?: 'md' | 'sm' = 'md';
 
 	@Input() inputModel!: any;
 	@Output() inputModelChange = new EventEmitter<any>();
-	public open = false;
-	public highlightedOptionIndex: number = -1;
-	public selectedOption: any;
-	public selectedOptions: Array<any> = [];
+	open = false;
+	highlightedOptionIndex: number = -1;
+	selectedOption: any;
+	selectedOptions: Array<any> = [];
+	filterQuery = '';
 
 	@ViewChild('buttonEl', { read: ElementRef, static: true }) 
 	private buttonEl : ElementRef;
@@ -37,7 +41,9 @@ export class SelectComponent implements OnInit {
 
 	_get = get;
 
-	constructor() {}
+	constructor(
+		private changeDetectorRef: ChangeDetectorRef
+	) {}
 	
 	ngOnInit(): void {
 		if (this.single) this.selectedOption = this.inputModel ? this.inputModel : undefined;
@@ -90,7 +96,7 @@ export class SelectComponent implements OnInit {
 			case 'ArrowDown':
 				event.preventDefault();
 				if (this.open) {
-					const nextSibling = this.optionsEl.nativeElement.children[this.highlightedOptionIndex].nextSibling;
+					const nextSibling = this.optionsEl.nativeElement.children[this.highlightedOptionIndex + 1].nextSibling;
 					const nextSiblingExsistsOrIsLi = nextSibling && nextSibling.tagName === 'LI';
 					this.highlightedOptionIndex = nextSiblingExsistsOrIsLi ? +nextSibling.dataset.index : 0;
 					this.optionsEl.nativeElement.scrollTop = nextSibling.offsetTop - (this.optionsEl.nativeElement.offsetHeight / 2);
@@ -103,11 +109,12 @@ export class SelectComponent implements OnInit {
 			case 'ArrowUp':
 				event.preventDefault();
 				if (this.open) {
-					const prevSibling = this.optionsEl.nativeElement.children[this.highlightedOptionIndex].previousSibling;
+					const prevSibling = this.optionsEl.nativeElement.children[this.highlightedOptionIndex + 1].previousSibling;
 					const prevSiblingExsistsOrIsLi = prevSibling && prevSibling.tagName === 'LI';
-					this.highlightedOptionIndex = prevSiblingExsistsOrIsLi ? +prevSibling.dataset.index : (this.optionsEl.nativeElement.children.length - 1);
-					if (prevSibling) this.optionsEl.nativeElement.scrollTop = prevSibling.offsetTop - (this.optionsEl.nativeElement.offsetHeight / 2);
+					this.highlightedOptionIndex = prevSiblingExsistsOrIsLi ? +prevSibling.dataset.index : (this.optionsEl.nativeElement.children.length - 2);
+					if (prevSiblingExsistsOrIsLi) this.optionsEl.nativeElement.scrollTop = prevSibling.offsetTop - (this.optionsEl.nativeElement.offsetHeight / 2);
 					else this.optionsEl.nativeElement.scrollTop = this.optionsEl.nativeElement.scrollHeight;
+					this.changeDetectorRef.detectChanges();
 				}
 				else {
 					this.open = true;
@@ -125,11 +132,14 @@ export class SelectComponent implements OnInit {
 				this.highlightedOptionIndex = 0;
 			}
 		}
+		this.changeDetectorRef.detectChanges();
 	}
 
-	get sortedOptions(): Array<any> {
-		if (this.sort !== null) return this.options.sort((a, b) => this._get(a, this.sort!) - this._get(b, this.sort!))
-		else return this.options
+	get sortedAndFilterdOptions(): Array<any> {
+		let returnOptions = this.options;
+		if (this.filter && this.filterQuery !== '') returnOptions = returnOptions.filter((option) => this._get(option, this.labelKey).toLowerCase().includes(this.filterQuery.toLowerCase()))
+		if (this.sort !== null) returnOptions = returnOptions.sort((a, b) => this._get(a, this[this.sort!]).localeCompare(this._get(b, this[this.sort!])))
+		return returnOptions;
 	}
 
 	get error(): boolean {

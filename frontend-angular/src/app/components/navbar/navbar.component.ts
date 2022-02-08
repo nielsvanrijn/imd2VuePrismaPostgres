@@ -3,6 +3,7 @@ import { fadeInAnimation } from 'src/app/animations/fade.animation';
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-navbar',
@@ -19,6 +20,7 @@ export class NavbarComponent {
 	constructor(
 		public auth: AuthService,
 		public userService: UserService,
+		public router: Router,
 	) { }
 
 	public toggle = false;

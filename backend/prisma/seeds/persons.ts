@@ -1,30 +1,7 @@
 /* eslint-disable no-irregular-whitespace */
 export const persons = [
     {
-        firstName: 'Niels',
-        lastName: 'van Rijn',
-        birthday: new Date('1993-08-10'),
-        country: {
-            connect: {
-                id: 123
-            }
-        },
-        bio: `My name is Niels I do lots of stuff`,
-        avatarUrl: 'https://upload.nielsapps.com/uploads/domains/localhost/me2.png',
-    },
-    {
-        firstName: 'Kelly',
-        lastName: 'Batist',
-        birthday: new Date('1993-03-02'),
-        country: {
-            connect: {
-                id: 123
-            }
-        },
-        bio: `My name is Kelly I do lots of stuff`,
-        avatarUrl: 'https://upload.nielsapps.com/uploads/domains/localhost/me2.png',
-    },
-    {
+        id: 1,
         firstName: "Bill",
         lastName: "Skarsgård",
         birthday: new Date("1990-08-09T00:00:00.000Z"),
@@ -37,6 +14,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/tzpt9IS4NMBTiWFqQOLtXUjCzOe.jpg"
     },
     {
+        id: 2,
         firstName: "Jonah",
         lastName: "Hill",
         birthday: new Date("1983-12-20T00:00:00.000Z"),
@@ -49,6 +27,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/cymlWttB83MsAGR2EkTgANtjeRH.jpg"
     },
     {
+        id: 3,
         firstName: "Kit",
         lastName: "Harington",
         birthday: new Date("1986-12-26T00:00:00.000Z"),
@@ -61,6 +40,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/noInYh5IKASiecR5lHJSjXIDmkm.jpg"
     },
     {
+        id: 4,
         firstName: "Jason",
         lastName: "Statham",
         birthday: new Date("1967-07-26T00:00:00.000Z"),
@@ -73,6 +53,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/lldeQ91GwIVff43JBrpdbAAeYWj.jpg"
     },
     {
+        id: 5,
         firstName: "Woody",
         lastName: "Harrelson",
         birthday: new Date("1961-07-23T00:00:00.000Z"),
@@ -85,6 +66,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/igxYDQBbTEdAqaJxaW6ffqswmUU.jpg"
     },
     {
+        id: 6,
         firstName: "Michael",
         lastName: "C. Hall",
         birthday: new Date("1971-02-01T00:00:00.000Z"),
@@ -97,6 +79,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/7zUMGoujuev5PUwwv4Gl6ikB50k.jpg"
     },
     {
+        id: 7,
         firstName: "Joaquin",
         lastName: "Phoenix",
         birthday: new Date("1974-10-28T00:00:00.000Z"),
@@ -109,6 +92,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/1UzIGSKFH0A9ouwnMwQQWUiqV2s.jpg"
     },
     {
+        id: 8,
         firstName: "Daniel",
         lastName: "Radcliffe",
         birthday: new Date("1989-07-23T00:00:00.000Z"),
@@ -121,6 +105,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/f9WKorjfanW4PxTxhjRvHtCmfKf.jpg"
     },
     {
+        id: 9,
         firstName: "Tom",
         lastName: "Cruise",
         birthday: new Date("1962-07-03T00:00:00.000Z"),
@@ -133,6 +118,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/8qBylBsQf4llkGrWR3qAsOtOU8O.jpg"
     },
     {
+        id: 10,
         firstName: "Cillian",
         lastName: "Murphy",
         birthday: new Date("1976-05-25T00:00:00.000Z"),
@@ -145,6 +131,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/i8dOTC0w6V274ev5iAAvo4Ahhpr.jpg"
     },
     {
+        id: 11,
         firstName: "Mahershala",
         lastName: "Ali",
         birthday: new Date("1974-02-16T00:00:00.000Z"),
@@ -157,6 +144,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/9ZmSejm5lnUVY5IJ1iNx2QEjnHb.jpg"
     },
     {
+        id: 12,
         firstName: "Brad",
         lastName: "Pitt",
         birthday: new Date("1963-12-18T00:00:00.000Z"),
@@ -169,6 +157,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/oTB9vGIBacH5aQNS0pUM74QSWuf.jpg"
     },
     {
+        id: 13,
         firstName: "Bradley",
         lastName: "Cooper",
         birthday: new Date("1975-01-05T00:00:00.000Z"),
@@ -181,6 +170,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/DPnessSsWqVXRbKm93PtMjB4Us.jpg"
     },
     {
+        id: 14,
         firstName: "Christian",
         lastName: "Bale",
         birthday: new Date("1974-01-30T00:00:00.000Z"),
@@ -193,6 +183,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/AcfW3p5D6ov573fABLyGqwYdolD.jpg"
     },
     {
+        id: 15,
         firstName: "Kevin",
         lastName: "Spacey",
         birthday: new Date("1959-07-26T00:00:00.000Z"),
@@ -205,6 +196,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/dlVRkUYKyZdJ39AN55cY1LoyXAP.jpg"
     },
     {
+        id: 16,
         firstName: "Johnny",
         lastName: "Depp",
         birthday: new Date("1963-06-09T00:00:00.000Z"),
@@ -217,6 +209,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/ilPBHd3r3ahlipNQtjr4E3G04jJ.jpg"
     },
     {
+        id: 17,
         firstName: "Jesse",
         lastName: "Eisenberg",
         birthday: new Date("1983-10-05T00:00:00.000Z"),
@@ -229,6 +222,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/yYhwWRcxDHTn63gSEF1vnDAD7cD.jpg"
     },
     {
+        id: 18,
         firstName: "Ryan",
         lastName: "Gosling",
         birthday: new Date("1980-11-12T00:00:00.000Z"),
@@ -241,6 +235,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/lyUyVARQKhGxaxy0FbPJCQRpiaW.jpg"
     },
     {
+        id: 19,
         firstName: "Timothée",
         lastName: "Chalamet",
         birthday: new Date("1995-12-27T00:00:00.000Z"),
@@ -253,6 +248,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/mgBQrX54MtuYx4sXnr1nlTUd7Eo.jpg"
     },
     {
+        id: 20,
         firstName: "Jason",
         lastName: "Momoa",
         birthday: new Date("1979-08-01T00:00:00.000Z"),
@@ -265,6 +261,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/6dEFBpZH8C8OijsynkSajQT99Pb.jpg"
     },
     {
+        id: 21,
         firstName: "Oscar",
         lastName: "Isaac",
         birthday: new Date("1979-03-09T00:00:00.000Z"),
@@ -277,6 +274,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/dW5U5yrIIPmMjRThR9KT2xH6nTz.jpg"
     },
     {
+        id: 22,
         firstName: "Tom",
         lastName: "Hanks",
         birthday: new Date("1956-07-09T00:00:00.000Z"),
@@ -289,6 +287,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/xndWFsBlClOJFRdhSt4NBwiPq2o.jpg"
     },
     {
+        id: 23,
         firstName: "Jim",
         lastName: "Carrey",
         birthday: new Date("1962-01-17T00:00:00.000Z"),
@@ -301,6 +300,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/u0AqTz6Y7GHPCHINS01P7gPvDSb.jpg"
     },
     {
+        id: 24,
         firstName: "Robert",
         lastName: "Downey Jr.",
         birthday: new Date("1965-04-04T00:00:00.000Z"),
@@ -313,6 +313,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/5qHNjhtjMD4YWH3UP0rm4tKwxCL.jpg"
     },
     {
+        id: 25,
         firstName: "Charlie",
         lastName: "Hunnam",
         birthday: new Date("1980-04-10T00:00:00.000Z"),
@@ -325,6 +326,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/rC7zE2CYpGE7qVRngVQBSI8yZWE.jpg"
     },
     {
+        id: 26,
         firstName: "Will",
         lastName: "Smith",
         birthday: new Date("1968-09-25T00:00:00.000Z"),
@@ -337,6 +339,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/6a6cl4ZNufJzrx5HZKWPU1BjjRF.jpg"
     },
     {
+        id: 27,
         firstName: "Daniel",
         lastName: "Craig",
         birthday: new Date("1968-03-02T00:00:00.000Z"),
@@ -349,6 +352,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/iFerDZUmC5Fu26i4qI8xnUVEHc7.jpg"
     },
     {
+        id: 28,
         firstName: "Henry",
         lastName: "Cavill",
         birthday: new Date("1983-05-05T00:00:00.000Z"),
@@ -361,6 +365,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/iWdKjMry5Pt7vmxU7bmOQsIUyHa.jpg"
     },
     {
+        id: 29,
         firstName: "Leonardo",
         lastName: "DiCaprio",
         birthday: new Date("1974-11-11T00:00:00.000Z"),
@@ -373,6 +378,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/wo2hJpn04vbtmh0B9utCFdsQhxM.jpg"
     },
     {
+        id: 30,
         firstName: "Willem",
         lastName: "Dafoe",
         birthday: new Date("1955-07-22T00:00:00.000Z"),
@@ -385,6 +391,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/ui8e4sgZAwMPi3hzEO53jyBJF9B.jpg"
     },
     {
+        id: 31,
         firstName: "Andrew",
         lastName: "Garfield",
         birthday: new Date("1983-08-20T00:00:00.000Z"),
@@ -397,6 +404,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/beO5YvbTjrr5yy8hW26KVDMSr35.jpg"
     },
     {
+        id: 32,
         firstName: "Morgan",
         lastName: "Freeman",
         birthday: new Date("1937-06-01T00:00:00.000Z"),
@@ -409,6 +417,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/oIciQWr8VwKoR8TmAw1owaiZFyb.jpg"
     },
     {
+        id: 33,
         firstName: "Tom",
         lastName: "Hardy",
         birthday: new Date("1977-09-15T00:00:00.000Z"),
@@ -421,6 +430,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/sOi4UZxflV07E7QXUaJTHROGlPU.jpg"
     },
     {
+        id: 34,
         firstName: "Matthew",
         lastName: "McConaughey",
         birthday: new Date("1969-11-04T00:00:00.000Z"),
@@ -433,6 +443,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/wJiGedOCZhwMx9DezY8uwbNxmAY.jpg"
     },
     {
+        id: 35,
         firstName: "Jeremy",
         lastName: "Renner",
         birthday: new Date("1971-01-07T00:00:00.000Z"),
@@ -445,6 +456,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/pGE3KiHxx7iRCs4yKP9wSFsVCyh.jpg"
     },
     {
+        id: 36,
         firstName: "Matt",
         lastName: "Damon",
         birthday: new Date("1970-10-08T00:00:00.000Z"),
@@ -457,6 +469,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/elSlNgV8xVifsbHpFsqrPGxJToZ.jpg"
     },
     {
+        id: 37,
         firstName: "Keanu",
         lastName: "Reeves",
         birthday: new Date("1964-09-02T00:00:00.000Z"),
@@ -469,6 +482,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/rRdru6REr9i3WIHv2mntpcgxnoY.jpg"
     },
     {
+        id: 38,
         firstName: "Edward",
         lastName: "Norton",
         birthday: new Date("1969-08-18T00:00:00.000Z"),
@@ -481,6 +495,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/5XBzD5WuTyVQZeS4VI25z2moMeY.jpg"
     },
     {
+        id: 39,
         firstName: "Viggo",
         lastName: "Mortensen",
         birthday: new Date("1958-10-20T00:00:00.000Z"),
@@ -493,6 +508,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/vH5gVSpHAMhDaFWfh0Q7BG61O1y.jpg"
     },
     {
+        id: 40,
         firstName: "Jack",
         lastName: "Nicholson",
         birthday: new Date("1937-04-22T00:00:00.000Z"),
@@ -505,6 +521,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/6h12pZsgj3WWjMtykUgfLkLEBWz.jpg"
     },
     {
+        id: 41,
         firstName: "Russell",
         lastName: "Crowe",
         birthday: new Date("1964-04-07T00:00:00.000Z"),
@@ -517,6 +534,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/mGTtPuwE8OR00tkJGmVLJmt8KpW.jpg"
     },
     {
+        id: 42,
         firstName: "Mel",
         lastName: "Gibson",
         birthday: new Date("1956-01-03T00:00:00.000Z"),
@@ -529,6 +547,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/bLzZZRyAsGJvQqsQ1hdptv93aIL.jpg"
     },
     {
+        id: 43,
         firstName: "Ryan",
         lastName: "Reynolds",
         birthday: new Date("1976-10-23T00:00:00.000Z"),
@@ -541,6 +560,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/4SYTH5FdB0dAORV98Nwg3llgVnY.jpg"
     },
     {
+        id: 44,
         firstName: "Ben",
         lastName: "Affleck",
         birthday: new Date("1972-08-15T00:00:00.000Z"),
@@ -553,6 +573,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/aTcqu8cI4wMohU17xTdqmXKTGrw.jpg"
     },
     {
+        id: 45,
         firstName: "Robert",
         lastName: "De Niro",
         birthday: new Date("1943-08-17T00:00:00.000Z"),
@@ -565,6 +586,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/cT8htcckIuyI1Lqwt1CvD02ynTh.jpg"
     },
     {
+        id: 46,
         firstName: "Arnold",
         lastName: "Schwarzenegger",
         birthday: new Date("1947-07-30T00:00:00.000Z"),
@@ -577,6 +599,7 @@ export const persons = [
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/z6IbTtI2FWAVZE6b1V4mqEHjwO6.jpg"
     },
     {
+        id: 47,
         firstName: "Orlando",
         lastName: "Bloom",
         birthday: new Date("1977-01-13T00:00:00.000Z"),
@@ -587,5 +610,44 @@ export const persons = [
         },
         bio: `Orlando Jonathan Blanchard Bloom is an English actor. He had his break-through roles in 2001 as the elf-prince Legolas in The Lord of the Rings and starting in 2003 as blacksmith Will Turner in the Pirates of the Caribbean trilogy of films, and subsequently established himself as a lead in Hollywood films, including Elizabethtown and Kingdom of Heaven. He appeared in the ensemble film New York, I Love You, and will have roles in Sympathy for Delicious and Main Street. Bloom made his professional stage debut in West End's In Celebration at the Duke of York's Theatre, St. Martin's Lane, which ended its run on 15 September 2007.\n\nOrlando Bloom was born in Canterbury, Kent, England. His mother, Sonia Constance Josephine (née Copeland), was born in the British section of Kolkata, India, the daughter of Betty Constance Josephine Walker and Francis John Copeland, who was a physician and surgeon. During his childhood, Bloom was told that his father was his mother's husband, South African-born Jewish anti-Apartheid novelist Harry Saul Bloom; but when he was thirteen (nine years after Harry's death), Bloom's mother revealed to him that his biological father was actually Colin Stone, his mother's partner and family friend. Stone, the principal of the Concorde International language school, was made Orlando Bloom's legal guardian after Harry Bloom's death. Bloom, who is named after the 16th century composer Orlando Gibbons, has one sister, Samantha Bloom, who was born in 1975.\n\nBloom's first appearance on the screen was as a rent boy in the 1997 film Wilde - he had a small part. Two days after graduating from Guildhall in 1999, he was cast in his first major role, playing Legolas in The Lord of the Rings (2001–2003). He had originally auditioned for the part of Faramir, who doesn't appear until the second movie but the director, Peter Jackson, cast him as Legolas instead.\n\nBloom met American actress Kate Bosworth outside a coffee shop in 2002, where he was introduced to her by a mutual friend. He met her again at the premiere of The Lord of the Rings: The Two Towers later that year. The two had an "on-and-off relationship" from 2002 until splitting up in September 2006. In late 2007, Bloom began dating Australian model Miranda Kerr. The couple's engagement was announced on June 21, 2010.\n\nBloom has said that he tries "not to exclude [himself] from real life as much as possible". He is a Manchester United fan and lives in London. During filming in Morocco for Kingdom of Heaven, Bloom rescued and adopted a dog, Sidi (a black Saluki mix with a white mark on his chest). Bloom is a practising Buddhist. In 2004, he became a full member of Soka Gakkai International, a lay Buddhist association affiliated with the teachings of Nichiren. Bloom has also been a part of Global Green, an environmental company, since the early 2000s. As part of his environmental involvement, he has renovated his London home to use solar panels, incorporate recycled materials, and utilize energy efficient lightbulbs. Bloom has been approached by UNICEF to act as an international ambassador.`,
         avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/pulwUR0lZ8IWwXUCRXCnyWfYvNL.jpg"
-    },	  
+    },
+    {
+        id: 48,
+        firstName: "J.K.",
+        lastName: "Rowling",
+        birthday: new Date("1965-07-31T00:00:00.000Z"),
+        country: {
+            connect: {
+                id: 186
+            }
+        },
+        bio: `Joanne Rowling (born 31 July 1965), better known by her pen name J. K. Rowling, is a British author, philanthropist, film producer, television producer, and screenwriter. She is best known for writing the Harry Potter fantasy series, which has won multiple awards and sold more than 500 million copies, becoming the best-selling book series in history. The books are the basis of a popular film series, over which Rowling had overall approval on the scripts and was a producer on the final films. She also writes crime fiction under the pen name Robert Galbraith.\n\nSince late 2019, Rowling has publicly voiced her opinions on transgender people and related civil rights. These views have been criticised as transphobic by many LGBT rights organisations and some feminists, but have received support from some other feminists and individuals.\n\nDescription above from the Wikipedia article J.K. Rowling, licensed under CC-BY-SA, full list of contributors on Wikipedia.`,
+        avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/8VDx3K8NBGJDEWr4KdsGsuT8wuj.jpg"
+    },
+    {
+        id: 49,
+        firstName: "Rupert",
+        lastName: "Grint",
+        birthday: new Date("1988-08-24T00:00:00.000Z"),
+        country: {
+            connect: {
+                id: 186
+            }
+        },
+        bio: `Rupert Alexander Lloyd Grint (born 24 August 1988) is an English actor. He rose to fame for his role as Ron Weasley, one of the three main characters in the Harry Potter film series. Grint was cast as Ron at age eleven, having previously acted only in school plays and at his local theatre group. From 2001 to 2011, he starred in all eight Harry Potter films.\n\nBeginning in 2002, Grint began to work outside of the Harry Potter franchise, playing a co-leading role in Thunderpants. He has had starring roles in Driving Lessons, a dramedy released in 2006, and Cherrybomb, a drama film of limited release in 2010. Grint co-starred with Bill Nighy and Emily Blunt in Wild Target, a comedy. His first film project following the end of the Harry Potter series was the 2012 anti-war film, Into the White, in which he had a supporting role. In 2013, Grint's film CBGB was released and he was cast in CBS's new show Super Clyde. Grint made his stage debut in Jez Butterworth's Mojo in October 2013 at the Harold Pinter Theatre in London. In 2014, he voiced the character of Josh in Postman Pat: The Movie, and from 2017 to 2018, he executive-produced and starred in the television series Snatch, based on the film of the same name. Since 2019, he stars in the Apple TV+ psychological horror series Servant.\n\nAside from acting, Grint supports several charitable causes. He is in a relationship with actress Georgia Groome, with whom he has a daughter.`,
+        avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/iFlkpTaOF6fGLqxz8b0PhI0i0zN.jpg"
+    },
+    {
+        id: 50,
+        firstName: "Emma",
+        lastName: "Watson",
+        birthday: new Date("1990-04-15T00:00:00.000Z"),
+        country: {
+            connect: {
+                id: 186
+            }
+        },
+        bio: `Emma Charlotte Duerre Watson (born 15 April 1990) is an English actress and activist. She has gained recognition for her roles in both blockbusters and independent films, as well as her women's rights work. Watson has been ranked among the world's highest-paid actresses by Forbes and Vanity Fair, and was named one of the 100 most influential people in the world by Time magazine in 2015.\n\nWatson attended the Dragon School and trained in acting at the Oxford branch of Stagecoach Theatre Arts. As a child, she rose to stardom after landing her first professional acting role as Hermione Granger in the Harry Potter film series, having acted only in school plays previously. Watson also starred in the 2007 television adaptation of the novel Ballet Shoes and lent her voice to The Tale of Despereaux (2008). After the final Harry Potter film, she took on a supporting role in My Week with Marilyn (2011), before starring as Sam, a flirtatious, free-spirited student in The Perks of Being a Wallflower (2012) to critical success. Further acclaim came from portraying Alexis Neiers in Sofia Coppola's The Bling Ring (2013) and the titular character's adoptive daughter in the biblical epic Noah. That same year, Watson was honoured by the British Academy of Film and Television Arts, winning British Artist of the Year. She also starred as Belle in the musical romantic fantasy Beauty and the Beast (2017), which ranks among the highest-grossing films of all time, and Meg March in the coming-of-age drama Little Women (2019).\n\nFrom 2011 to 2014, Watson split her time between working on films and continuing her education, graduating from Brown University with a bachelor's degree in English literature in May 2014. That year, she was appointed a UN Women Goodwill Ambassador and helped launch the UN Women campaign HeForShe, which advocates for gender equality. In 2018, she helped launch Time's Up UK as a founding member. Watson was appointed to a G7 advisory body for women's rights in 2019, consulting with leaders on foreign policy. Her modelling work has included campaigns for Burberry and Lancôme. She also lent her name to a clothing line for the sustainable brand People Tree. In 2020, she joined the board of directors of Kering, a luxury brand group, in her capacity as an advocate for sustainable fashion.`,
+        avatarUrl: "https://upload.nielsapps.com/uploads/domains/localhost/mf0OANvWYSzU1d8yggrhyw8IbIz.jpg"
+    },
 ];

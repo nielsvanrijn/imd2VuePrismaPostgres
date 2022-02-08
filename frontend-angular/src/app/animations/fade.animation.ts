@@ -36,32 +36,32 @@ export const fadeInAnimation = trigger('fadeInAnimation',
 	]
 );
 
-export const singleSelectHideShowAnimation = trigger("singleSelectHideShowAnimation",
+export const dropdownHideShowAnimation = trigger('dropdownHideShowAnimation',
 	[
 		transition(
 			':enter', 
 			[
-				style({ opacity: 0, transform: "scale(0.95, 0.95)" }),
-				animate('100ms ease-out', style({ opacity: 1, transform: "scale(1, 1)" }))
+				style({ opacity: 0, transform: 'scale(0.95, 0.95)' }),
+				animate('100ms ease-out', style({ opacity: 1, transform: 'scale(1, 1)' }))
 			]
 		),
 		transition(
 			':leave', 
 			[
-				style({ opacity: 1, transform: "scale(1, 1)" }),
-				animate('75ms ease-in', style({ opacity: 0, transform: "scale(0.95, 0.95)" }))
+				style({ opacity: 1, transform: 'scale(1, 1)' }),
+				animate('75ms ease-in', style({ opacity: 0, transform: 'scale(0.95, 0.95)' }))
 			]
 		)
 	]
 );
 
-export const selectHideShowAnimation = trigger("singleSelectHideShowAnimation",
+export const selectHideShowAnimation = trigger('singleSelectHideShowAnimation',
 	[
 		// transition(
 		// 	':enter', 
 		// 	[
-		// 		style({ opacity: 0, transform: "scale(0.95, 0.95)" }),
-		// 		animate('100ms ease-out', style({ opacity: 1, transform: "scale(1, 1)" }))
+		// 		style({ opacity: 0, transform: 'scale(0.95, 0.95)' }),
+		// 		animate('100ms ease-out', style({ opacity: 1, transform: 'scale(1, 1)' }))
 		// 	]
 		// ),
 		transition(

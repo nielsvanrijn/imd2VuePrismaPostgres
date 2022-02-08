@@ -19,7 +19,10 @@ module.exports = {
 			},
 			flex: {
 				'2': '2 2 0%'
-			}
+			},
+			aspectRatio: {
+				'poster': '2 / 3',
+			},
 		},
 	},
 	variants: {

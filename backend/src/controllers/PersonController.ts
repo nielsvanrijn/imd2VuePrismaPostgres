@@ -29,12 +29,12 @@ export const createPerson = async (req: Request, res: Response) => {
                         data: writers.map((movieId: number) => ({movieId}))
                     }
                 },
-                character: {
-                    createMany: {
-                        skipDuplicates: true,
-                        data: characters.map((movieId: number) => ({movieId}))
-                    }
-                },
+                // character: {
+                //     createMany: {
+                //         skipDuplicates: true,
+                //         data: characters.map((movieId: number) => ({movieId}))
+                //     }
+                // },
                 cast: {
                     createMany: {
                         skipDuplicates: true,
@@ -60,7 +60,7 @@ export const getPersons = async (req: Request, res: Response) => {
                 country: true,
                 director: true,
                 writer: true,
-                character: true,
+                // character: true,
                 cast: true,
             }
         });
@@ -82,7 +82,7 @@ export const getPerson = async (req: Request, res: Response) => {
                 country: true,
                 director: true,
                 writer: true,
-                character: true,
+                // character: true,
                 cast: true,
             }
         });
@@ -127,12 +127,12 @@ export const updatePerson = async (req: Request, res: Response) => {
                         data: writers.map((movieId: number) => ({movieId}))
                     }
                 },
-                character: {
-                    createMany: {
-                        skipDuplicates: true,
-                        data: characters.map((movieId: number) => ({movieId}))
-                    }
-                },
+                // character: {
+                //     createMany: {
+                //         skipDuplicates: true,
+                //         data: characters.map((movieId: number) => ({movieId}))
+                //     }
+                // },
                 cast: {
                     createMany: {
                         skipDuplicates: true,

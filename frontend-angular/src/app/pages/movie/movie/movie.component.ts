@@ -52,6 +52,8 @@ export class MovieComponent {
 	}
 	
 	callCreateMovie(movie: Movie) {
+		movie.cast.forEach((c) => {if(!c.characterId) c.characterId = c.character.id});
+
 		this.movieService.createMovie(movie).subscribe({
 			next: () => this.router.navigate(['movies']),
 			error: (e) => {
@@ -60,18 +62,42 @@ export class MovieComponent {
 		});
 	}
 
-	callUploadMoviePoster(file: File) {
+	callUploadMoviePoster(file: File, action: 'add' | 'update') {
 		this.movieService.uploadMoviePoster(file).then((sub) => sub.subscribe({
 			next: (result: any) => {
 				const currentValue = this.movie$.getValue();
-				if (currentValue && currentValue.posterUrls) currentValue.posterUrls.push(result.url);
-				else if(currentValue) currentValue.posterUrls = [result.url];
-				this.movie$.next(currentValue);
+				if (action === 'add') {
+					if (currentValue && currentValue.posterUrls) {
+						if(currentValue.posterUrls.length > 0) currentValue.posterUrlsIndex += 1;
+						currentValue.posterUrls.push(result.url);
+					}
+					else if(currentValue) currentValue.posterUrls = [result.url];
+					this.movie$.next(currentValue);
+				} else {
+					if (currentValue) currentValue.posterUrls[currentValue.posterUrlsIndex] = result.url;
+					this.movie$.next(currentValue);
+					this.callUpdateMovie(this.movie$.getValue()!, false);
+				}
 			},
 			error: (e: any) => {
 				console.log(e);
 			},
 		}));
+	}
+
+	callDeleteMoviePoster() {
+		const filenName = this.movie$.getValue()!.posterUrls[this.movie$.getValue()!.posterUrlsIndex].substring(29);
+		this.movieService.deleteMoviePoster(filenName).then((sub) => sub.subscribe({		
+			next: () => {
+				this.resetMoviePosterIndex();
+				const currentValue = this.movie$.getValue()!;
+				currentValue.posterUrls
+				currentValue.posterUrls.splice(currentValue.posterUrls.findIndex((url) => url.includes(filenName)), 1)
+				this.callUpdateMovie(this.movie$.getValue()!, false);	
+			}
+		})).catch((e) => {
+			console.log(e)
+		});
 	}
 
 	callGetAllGenres() {
@@ -98,9 +124,9 @@ export class MovieComponent {
 		});
 	}
 
-	callUpdateMovie(movie: Movie) {
+	callUpdateMovie(movie: Movie, navigate = true) {
 		this.movieService.updateMovie(movie).subscribe({
-			next: () => this.router.navigate(['movies']),
+			next: (result) => navigate ? this.router.navigate(['movies']) : this.movie$.next(plainToInstance(Movie, result)),
 			error: (e) => {
 				this.errorResponse = e.error;
 			},
@@ -111,7 +137,23 @@ export class MovieComponent {
 		return this.persons$.getValue()?.find((p) => p.id === personId);
 	}
 
-	logg() {
-		console.log(this.movie$.getValue())
+	incrementMoviePosterIndex() {
+		const updatedMovie = this.movie$.getValue()!;
+		updatedMovie.posterUrlsIndex += 1;
+		this.movie$.next(updatedMovie);
+	}
+	decrementMoviePosterIndex() {
+		const updatedMovie = this.movie$.getValue()!;
+		updatedMovie.posterUrlsIndex -= 1;
+		this.movie$.next(updatedMovie);
+	}
+	resetMoviePosterIndex() {
+		const updatedMovie = this.movie$.getValue()!;
+		updatedMovie.posterUrlsIndex = 0;
+		this.movie$.next(updatedMovie);
+	}
+
+	logg(x: any) {
+		console.log(x);
 	}
 }

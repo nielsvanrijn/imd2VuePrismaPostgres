@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 @Component({
 	selector: 'app-input-file',
@@ -9,6 +10,9 @@ export class InputFileComponent {
 	@Input() label: string = 'Choose';
 	@Input() name: string = this.label;
 	@Input() required: boolean = false;
+	@Input() disabled: boolean = false;
+	@Input() group: boolean = false;
+	@Input() icon: string = '';
 	@Input() errors: string[] = [];
 	@Input() supportedFileTypes: string[] = [];
 
@@ -34,6 +38,10 @@ export class InputFileComponent {
 		} else {
 			this.errors = [];
 		}
+	}
+
+	get iconAsIconProp() {
+		return this.icon as IconProp;
 	}
 
 }

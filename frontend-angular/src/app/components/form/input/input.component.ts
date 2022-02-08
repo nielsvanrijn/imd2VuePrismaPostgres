@@ -18,6 +18,7 @@ export class InputComponent {
 	@Input() disabled: boolean = false;
 	@Input() icon: IconProp = 'dog';
 	@Input() duration: boolean = false;
+	@Input() max: number | null = null;
 
 	@Input() inputModel!: any;
 	@Output() inputModelChange = new EventEmitter<any>();

@@ -29,17 +29,10 @@ async function main() {
         });
     });
 
-    // Movies
-    movies.forEach(async (movie) => {
-        await prisma.movie.create({
-            data: movie
-        });
-    });
-
     // Persons
     persons.forEach(async (person) => {
         await prisma.person.create({
-            data: person
+            data: (person as any)
         });
     });
 
@@ -49,7 +42,13 @@ async function main() {
             data: character
         });
     });
-    
+
+    // Movies
+    movies.forEach(async (movie) => {
+        await prisma.movie.create({
+            data: movie
+        });
+    });
 }
 
 main()

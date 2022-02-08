@@ -21,12 +21,12 @@ export const createCharacter = async (req: Request, res: Response) => {
                         data: cast.map((personId: number) => ({personId}))
                     }
                 },
-                persons: {
-                    createMany: {
-                        skipDuplicates: true,
-                        data: persons.map((personId: number) => ({personId}))
-                    }
-                }
+                // persons: {
+                //     createMany: {
+                //         skipDuplicates: true,
+                //         data: persons.map((personId: number) => ({personId}))
+                //     }
+                // }
             }
         });
         
@@ -44,7 +44,7 @@ export const getCharacters = async (req: Request, res: Response) => {
         const characters = await prisma.character.findMany({
             include: {
                 cast: true,
-                persons: true,
+                // persons: true,
             }
         });
         return res.json(characters);
@@ -63,7 +63,7 @@ export const getCharacter = async (req: Request, res: Response) => {
             where: { id: Number(id) },
             include: {
                 cast: true,
-                persons: true,
+                // persons: true,
             }
         });
 
@@ -99,12 +99,12 @@ export const updateCharacter = async (req: Request, res: Response) => {
                         data: cast.map((personId: number) => ({personId}))
                     }
                 },
-                persons: {
-                    createMany: {
-                        skipDuplicates: true,
-                        data: persons.map((personId: number) => ({personId}))
-                    }
-                }
+                // persons: {
+                //     createMany: {
+                //         skipDuplicates: true,
+                //         data: persons.map((personId: number) => ({personId}))
+                //     }
+                // }
             }
         });
         

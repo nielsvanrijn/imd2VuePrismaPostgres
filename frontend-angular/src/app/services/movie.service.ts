@@ -5,6 +5,7 @@ import { Movie } from '../models/Movie';
 import { Genre } from '../models/Genre';
 import { hash } from 'bcryptjs';
 import { Person } from '../models/Person';
+import { instanceToPlain } from 'class-transformer';
 
 @Injectable({
 	providedIn: 'root'
@@ -29,6 +30,13 @@ export class MovieService {
 		return this.http.post(environment.uploadApiUrl, formData, { headers: { Authorization: 'Basic ' + btoa(`${hashedUsername}:${hashedPassword}`)}});
 	}
 
+	async deleteMoviePoster(fileName: string) {
+		const hashedUsername = await hash(environment.uploadUserName, 12);
+		const hashedPassword = await hash(environment.uploadApiPass, 12);
+		
+		return this.http.delete(`${environment.uploadApiUrl}${fileName}`, { headers: { Authorization: 'Basic ' + btoa(`${hashedUsername}:${hashedPassword}`)}});
+	}
+
 	getMovie(movieId: number) {
 		return this.http.get<Movie>(`${environment.apiUrl}/movie/${movieId}`);
 	}
@@ -37,8 +45,12 @@ export class MovieService {
 		return this.http.get<Movie[]>(`${environment.apiUrl}/movies`);
 	}
 
+	getAllMoviesWithSortAndFilter(data: {sort?: {on: string, direction: string}, filter: {genreIds?: number[], castPersonIds?: number[], directorPersonIds?: number[], writerPersonIds?: number[]}}) {
+		return this.http.post<Movie[]>(`${environment.apiUrl}/movies`, data);
+	}
+
 	updateMovie(movie: Movie) {
-		return this.http.patch<Movie>(`${environment.apiUrl}/movie/${movie.id}`, movie);
+		return this.http.patch<Movie>(`${environment.apiUrl}/movie/${movie.id}`, instanceToPlain(movie) );
 	}
 
 	deleteMovie(movieId: number) {

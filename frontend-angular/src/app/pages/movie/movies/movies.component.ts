@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { plainToInstance } from 'class-transformer';
+import { BehaviorSubject } from 'rxjs';
+import { Genre } from 'src/app/models/Genre';
 import { Movie } from 'src/app/models/Movie';
+import { Person } from 'src/app/models/Person';
 import { MovieService } from 'src/app/services/movie.service';
 
 @Component({
@@ -10,90 +13,38 @@ import { MovieService } from 'src/app/services/movie.service';
 	styleUrls: ['./movies.component.scss'],
 })
 export class MoviesComponent {
-	public filter = {
-		sort: {
-			type: 'single',
-			options: [
-				{
-					name: 'Most Popular',
-					active: false
-				},
-				{
-					name: 'Best Rating',
-					active: false
-				},
-				{
-					name: 'Newest',
-					active: false
-				},
-			]
+	movies: Movie[] = [];
+	filterObject: {sort?: {on: string, direction: string}, filter: {genreIds?: number[], castPersonIds?: number[], directorPersonIds?: number[], writerPersonIds?: number[]}} = {filter: {}};
+	sortOptions = [
+		{
+			label: 'Name',
+			states: [null, 'asc', 'desc'],
+			iconsStyle: ['far', 'far'],
+			icons: ['arrow-down-a-z', 'arrow-up-z-a'],
 		},
-		category: {
-			type: 'multi',
-			options: [
-				{
-					name: 'All New Arrivals',
-					active: false
-				},
-				{
-					name: 'Tees',
-					active: false
-				},
-				{
-					name: 'Objects',
-					active: false
-				},
-			]
+		{
+			label: 'Year',
+			states: [null, 'asc', 'desc'],
+			iconsStyle: ['far', 'far'],
+			icons: ['arrow-down-1-9', 'arrow-up-9-1'],
 		},
-		color: {
-			type: 'multi',
-			options: [
-				{
-					name: 'White',
-					active: false
-				},
-				{
-					name: 'Beige',
-					active: false
-				},
-				{
-					name: 'Blue',
-					active: false
-				},
-			]
+		{
+			label: 'Length',
+			states: [null, 'asc', 'desc'],
+			iconsStyle: ['far', 'far'],
+			icons: ['arrow-down-wide-short', 'arrow-up-short-wide'],
 		},
-		sizes: {
-			type: 'multi',
-			options: [
-				{
-					name: 'S',
-					active: false
-				},
-				{
-					name: 'M',
-					active: false
-				},
-				{
-					name: 'L',
-					active: false
-				},
-			]
-		},
-	};
-	public arr = ['one', 'two', 'three'];
-	public arr2 = [
-		{name: 'name one', value: 'value one'},
-		{name: 'name two', value: 'value two'},
-		{name: 'name three', value: 'value three'}
 	];
-
-	public movies: Movie[] = [];
+	readonly genres$ = new BehaviorSubject<Genre[] | null>(null);
+	readonly persons$ = new BehaviorSubject<Person[] | null>(null);
 
 	constructor(
 		public router: Router,
 		public movieService: MovieService,
 	) {
 		this.callGetAllMovies();
+		this.callGetAllGenres();
+		this.callgetAllPersons();
 	}
 
 	callGetAllMovies() {
@@ -103,4 +54,28 @@ export class MoviesComponent {
 		});
 	}
 
+	callGetAllGenres() {
+		this.movieService.getAllGenres().subscribe({
+			next: (result) => this.genres$.next(plainToInstance(Genre, result)),
+			error: (e) => console.log(e)
+		});
+	}
+
+	callgetAllPersons() {
+		this.movieService.getAllPersons().subscribe({
+			next: (result) => this.persons$.next(plainToInstance(Person, result)),
+			error: (e) => console.log(e)
+		});
+	}
+
+	callGetAllMoviesWithSortAndFilter() {
+		this.movieService.getAllMoviesWithSortAndFilter(this.filterObject).subscribe({
+			next: (result) => this.movies = plainToInstance(Movie, result),
+			error: (e) => console.log('callGetAllMovies error', e)
+		});
+	}
+
+	logg(x: any) {
+		console.log(x);
+	}
 }

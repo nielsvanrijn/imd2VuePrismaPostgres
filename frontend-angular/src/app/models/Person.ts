@@ -16,4 +16,8 @@ export class Person {
 	get fullName() {
 		return `${this.firstName} ${this.lastName}`;
 	}
+
+	get hasAvatar() {
+		return this.avatarUrl;
+	}
 }

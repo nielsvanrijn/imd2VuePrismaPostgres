@@ -8,7 +8,7 @@ import { createUser, deleteUser, getUser, getUsers, loginUser, logout, refeshTok
 import { validate } from './middlewares/ValidateMiddleware';
 import { createUserSchema, deleteUserSchema, loginUserSchema, revokeUserRefeshTokenSchema, updateUserSchema } from './middlewares/UserValidation';
 import { isAdmin, isAuth } from './middlewares/AuthValidation';
-import { createMovie, deleteMovie, getMovie, getMovies, test, updateMovie } from './controllers/MovieController';
+import { createMovie, deleteMovie, getMovie, getMovies, getMoviesWithSortAndFilter, test, updateMovie } from './controllers/MovieController';
 import { createMovieSchema, deleteMovieSchema, getMovieSchema, updateMovieSchema } from './middlewares/MovieValidation';
 import { createPersonSchema, deletePersonSchema, getPersonSchema, updatePersonSchema } from './middlewares/PersonValidation';
 import { createPerson, deletePerson, getPerson, getPersons, updatePerson } from './controllers/PersonController';
@@ -49,6 +49,7 @@ app.use('/movie', validate(isAuth));
 app.post('/movie', validate(createMovieSchema), createMovie);
 // read
 app.get('/movies', validate(isAuth), getMovies);
+app.post('/movies', validate(isAuth), getMoviesWithSortAndFilter);
 app.get('/movie/:id', validate(getMovieSchema), getMovie);
 // update
 app.patch('/movie/:id', updateMovieSchema, validate(), updateMovie);

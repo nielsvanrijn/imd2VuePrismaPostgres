@@ -60,6 +60,7 @@ model Movie {
   length		Int?
   description	String?
   posterUrls	String[]
+  posterUrlsIndex		Int	@default(0)
   trailerUrls	String[]
   directors		DirectorsOnMovies[]
   writers		WritersOnMovies[]
@@ -79,7 +80,7 @@ model Person {
   avatarUrl		String
   director		DirectorsOnMovies[]
   writer		WritersOnMovies[]
-  character		CharactersOnPersons[]
+//   character		CharactersOnPersons[]
   cast			CastOnMovies[]
   createdAt		DateTime	@default(now())
   updatedAt		DateTime	@updatedAt
@@ -91,7 +92,7 @@ model Character {
   birthday		DateTime
   bio			String
   cast			CastOnMovies[]
-  persons		CharactersOnPersons[]
+//   persons		CharactersOnPersons[]
   createdAt		DateTime	@default(now())
   updatedAt		DateTime	@updatedAt
 }
@@ -114,16 +115,16 @@ model GenresOnMovies {
 
   @@id([movieId, genreId])
 }
-model CharactersOnPersons {
-  person		Person	@relation(fields: [personId], references: [id])
-  personId		Int
-  character		Character	@relation(fields: [characterId], references: [id])
-  characterId	Int
-  createdAt		DateTime	@default(now())
-  updatedAt		DateTime	@updatedAt
+// model CharactersOnPersons {
+//   person		Person	@relation(fields: [personId], references: [id])
+//   personId		Int
+//   character		Character	@relation(fields: [characterId], references: [id])
+//   characterId	Int
+//   createdAt		DateTime	@default(now())
+//   updatedAt		DateTime	@updatedAt
 
-  @@id([personId, characterId])
-}
+//   @@id([personId, characterId])
+// }
 model DirectorsOnMovies {
   movie			Movie		@relation(fields: [movieId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   movieId		Int

@@ -6,7 +6,10 @@ import { FormsModule } from '@angular/forms';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgIconsModule } from '@ng-icons/core';
-import { HeroUsers, HeroChevronDownSolid, HeroCheckCircleSolid, HeroSearchSolid, HeroFilm, HeroUserCircle, HeroPlusSm, HeroSelectorSolid } from '@ng-icons/heroicons';
+import { 
+	HeroUsers, HeroChevronDownSolid, HeroCheckCircleSolid, HeroSearchSolid,
+	HeroFilm, HeroUserCircle, HeroPlusSm, HeroSelectorSolid,
+	HeroChevronLeftSolid, HeroChevronRightSolid } from '@ng-icons/heroicons';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,11 +25,15 @@ import { EditAccountComponent } from './pages/account/edit-account/edit-account.
 import { AccountComponent } from './pages/account/account/account.component';
 import { MovieComponent } from './pages/movie/movie/movie.component';
 import { MoviesComponent } from './pages/movie/movies/movies.component';
-import { SingleSelectComponent } from './components/form/single-select/single-select.component';
 import { ButtonComponent } from './components/form/button/button.component';
 import { TextAreaComponent } from './components/form/textarea/textarea.component';
 import { SelectOldComponent } from './components/form/select-old/select.component';
 import { SelectComponent } from './components/form/select/select.component';
+import { DropdownComponent } from './components/ui/dropdown/dropdown.component';
+import { PersonsComponent } from './pages/person/persons/persons.component';
+import { PersonComponent } from './pages/person/person/person.component';
+import { CharactersComponent } from './pages/character/characters/characters.component';
+import { CharacterComponent } from './pages/character/character/character.component';
 
 @NgModule({
 	declarations: [
@@ -42,11 +49,15 @@ import { SelectComponent } from './components/form/select/select.component';
 		AccountComponent,
 		MovieComponent,
 		MoviesComponent,
-		SingleSelectComponent,
 		ButtonComponent,
 		TextAreaComponent,
   		SelectOldComponent,
     	SelectComponent,
+     	DropdownComponent,
+      PersonsComponent,
+      PersonComponent,
+      CharactersComponent,
+      CharacterComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -63,6 +74,8 @@ import { SelectComponent } from './components/form/select/select.component';
 			HeroUserCircle,
 			HeroPlusSm,
 			HeroSelectorSolid,
+			HeroChevronLeftSolid,
+			HeroChevronRightSolid,
 		}),
   		FontAwesomeModule,
 	],
