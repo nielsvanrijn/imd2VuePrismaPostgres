@@ -17,3 +17,8 @@
 *.njsproj
 *.sln
 *.sw?
+imgs/
+
+res.txt
+
+search.js
